@@ -956,6 +956,10 @@
 
                 <!-- Navigation -->
                 <nav class="nav-container">
+                    <div id="user-status" style="text-align: center; margin-bottom: var(--space-lg); display: none;">
+                        <span id="current-user-info" style="background: var(--primary-100); color: var(--primary-800); padding: var(--space-sm) var(--space-md); border-radius: var(--radius-md); font-weight: 600; font-size: 0.875rem;"></span>
+                        <button id="logout-btn" style="background: var(--error-500); color: var(--white); border: none; padding: var(--space-sm) var(--space-md); border-radius: var(--radius-md); margin-left: var(--space-sm); font-weight: 600; font-size: 0.875rem; cursor: pointer;">Logout</button>
+                    </div>
                     <ul class="nav-list">
                         <li class="nav-item">
                             <a href="#home" class="nav-link">
@@ -963,13 +967,13 @@
                                 <span>Home</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="register-nav-item">
                             <a href="#register" class="nav-link">
                                 <i class="fas fa-user-plus"></i>
                                 <span>Register</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="login-nav-item">
                             <a href="#login" class="nav-link">
                                 <i class="fas fa-sign-in-alt"></i>
                                 <span>Login</span>
@@ -987,7 +991,7 @@
                                 <span>Track Report</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="admin-nav-item">
                             <a href="#admin-panel" class="nav-link">
                                 <i class="fas fa-cog"></i>
                                 <span>Admin Panel</span>
@@ -1243,6 +1247,14 @@
                 fullName: 'Demo User',
                 mobileNumber: '+1234567890',
                 userId: 'demo-user-1'
+            },
+            {
+                email: 'admin@paws.com',
+                password: 'admin123',
+                fullName: 'Admin User',
+                mobileNumber: '+1234567890',
+                userId: 'admin-user-1',
+                isAdmin: true
             }
         ];
         
@@ -1269,19 +1281,50 @@
             modal.style.display = 'none';
         }
 
+        // Function to update UI based on authentication status
+        function updateUIForAuthentication() {
+            const userStatus = document.getElementById('user-status');
+            const currentUserInfo = document.getElementById('current-user-info');
+            const logoutBtn = document.getElementById('logout-btn');
+            const registerNavItem = document.getElementById('register-nav-item');
+            const loginNavItem = document.getElementById('login-nav-item');
+            const adminNavItem = document.getElementById('admin-nav-item');
+            
+            if (userId && isUserAuthenticated) {
+                // User is logged in
+                const currentUser = demoUsers.find(u => u.userId === userId);
+                const userType = isAdmin ? 'Administrator' : 'User';
+                currentUserInfo.textContent = `${currentUser.fullName} (${userType})`;
+                userStatus.style.display = 'block';
+                
+                // Hide register/login nav items
+                registerNavItem.style.display = 'none';
+                loginNavItem.style.display = 'none';
+                
+                // Show/hide admin nav based on admin status
+                adminNavItem.style.display = isAdmin ? 'block' : 'none';
+                
+            } else {
+                // User is not logged in
+                userStatus.style.display = 'none';
+                registerNavItem.style.display = 'block';
+                loginNavItem.style.display = 'block';
+                adminNavItem.style.display = 'none';
+            }
+        }
+
         // Function to update File Report section based on authentication status
         function updateFileReportSection() {
             const loginPrompt = document.getElementById('file-report-login-prompt');
             const formContainer = document.getElementById('file-report-form-container');
             
-            // Check both userId and current authentication status
-            const currentUser = auth.currentUser;
-            const isAuthenticated = userId && currentUser && !currentUser.isAnonymous;
+            // Check if user is authenticated using our demo system
+            const isAuthenticated = userId && isUserAuthenticated;
             
             if (isAuthenticated) {
                 // User is logged in - show the form
                 loginPrompt.style.display = 'none';
-                formContainer.style.display = 'flex';
+                formContainer.style.display = 'block';
                 formContainer.classList.remove('disabled');
             } else {
                 // User is not logged in - show the login prompt
@@ -1316,9 +1359,37 @@
             isUserAuthenticated = false;
             
             // Update UI to show logged out state
+            updateUIForAuthentication();
             updateFileReportSection();
             document.getElementById('user-reports-table-body').innerHTML = '<tr><td colspan="5" class="empty-state"><i class="fas fa-search"></i><p>No reports found or please log in.</p></td></tr>';
             document.getElementById('admin-reports-list').innerHTML = '<div class="empty-state"><i class="fas fa-cog"></i><p>No reports found or only accessible by admin.</p></div>';
+            
+            // Add logout functionality
+            document.getElementById('logout-btn').addEventListener('click', function() {
+                // Clear authentication state
+                userId = null;
+                isAdmin = false;
+                isUserAuthenticated = false;
+                
+                // Update UI
+                updateUIForAuthentication();
+                updateFileReportSection();
+                
+                // Clear forms
+                document.getElementById('login-form').reset();
+                document.getElementById('register-form').reset();
+                document.getElementById('file-report-form').reset();
+                
+                // Reset tables
+                document.getElementById('user-reports-table-body').innerHTML = '<tr><td colspan="5" class="empty-state"><i class="fas fa-search"></i><p>No reports found or please log in.</p></td></tr>';
+                document.getElementById('admin-reports-list').innerHTML = '<div class="empty-state"><i class="fas fa-cog"></i><p>No reports found or only accessible by admin.</p></div>';
+                
+                // Show logout message and redirect to home
+                showMessageModal("You have been successfully logged out.");
+                setTimeout(() => {
+                    showSection('home');
+                }, 1500);
+            });
         });
 
         // --- Navigation Logic ---
@@ -1494,21 +1565,27 @@
                     // Set authentication state
                     userId = user.userId;
                     isUserAuthenticated = true;
-                    isAdmin = false;
+                    isAdmin = user.isAdmin || false;
                     
                     // Success message
-                    showMessageModal(`Welcome back! You have successfully logged in as ${user.email}.`);
+                    const userType = isAdmin ? 'Administrator' : 'User';
+                    showMessageModal(`Welcome back! You have successfully logged in as ${user.email} (${userType}).`);
                     
                     // Reset form and redirect
                     document.getElementById('login-form').reset();
                     
                     // Update UI
+                    updateUIForAuthentication();
                     updateFileReportSection();
-                    loadUserReports();
+                    if (isAdmin) {
+                        loadAdminReports();
+                    } else {
+                        loadUserReports();
+                    }
                     
                     // Small delay before redirect to show success message
                     setTimeout(() => {
-                        showSection('home');
+                        showSection(isAdmin ? 'admin-panel' : 'home');
                     }, 1500);
                     
                 } else {
@@ -1544,17 +1621,9 @@
         document.getElementById('file-report-form').addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            // Check authentication status using our flag
-            if (!isUserAuthenticated) {
+            // Check authentication status using our demo system
+            if (!isUserAuthenticated || !userId) {
                 showMessageModal("Please log in to file a report.");
-                showSection('login');
-                return;
-            }
-
-            // Double-check with Firebase auth
-            const currentUser = auth.currentUser;
-            if (!currentUser || currentUser.isAnonymous) {
-                showMessageModal("Please log in with a valid account to file a report.");
                 showSection('login');
                 return;
             }
@@ -1654,25 +1723,21 @@
             const adminReportsList = document.getElementById('admin-reports-list');
             adminReportsList.innerHTML = '<div class="loading">Loading admin reports...<div class="loading-spinner"></div></div>';
 
-            try {
-                // Fetch all reports for admin view
-                const q = query(collection(db, `artifacts/${appId}/public/data/reports`));
-
-                onSnapshot(q, (snapshot) => {
-                    if (snapshot.empty) {
+            // Simulate network delay
+            setTimeout(() => {
+                try {
+                    if (demoReports.length === 0) {
                         adminReportsList.innerHTML = '<div class="empty-state"><i class="fas fa-clipboard-list"></i><p>No reports to review.</p></div>';
                         return;
                     }
 
                     adminReportsList.innerHTML = ''; // Clear existing cards
-                    snapshot.forEach((doc) => {
-                        const report = doc.data();
-                        const reportId = doc.id;
+                    demoReports.forEach((report) => {
                         const card = `
                             <div class="admin-card">
                                 <div class="admin-card-header">
-                                    <h3 class="admin-card-title">Report ID: ${reportId}</h3>
-                                    <span class="status-badge ${report.status === 'New' ? 'status-received' : report.status === 'Under Review' ? 'status-review' : 'status-resolved'}">${report.status}</span>
+                                    <h3 class="admin-card-title">Report ID: ${report.reportId}</h3>
+                                    <span class="status-badge ${report.status === 'Received' ? 'status-received' : report.status === 'Under Review' ? 'status-review' : 'status-resolved'}">${report.status}</span>
                                 </div>
                                 <p><span class="font-medium">User ID:</span> ${report.userId}</p>
                                 <p><span class="font-medium">Type:</span> ${report.crueltyType}</p>
@@ -1680,14 +1745,14 @@
                                 <p><span class="font-medium">Date/Time:</span> ${report.date}, ${report.time}</p>
                                 <p><span class="font-medium">Description:</span> ${report.description}</p>
                                 <div class="admin-controls">
-                                    <select id="status-select-${reportId}" class="admin-select">
+                                    <select id="status-select-${report.reportId}" class="admin-select">
                                         <option value="Received" ${report.status === 'Received' ? 'selected' : ''}>Received</option>
                                         <option value="Under Review" ${report.status === 'Under Review' ? 'selected' : ''}>Under Review</option>
                                         <option value="Forwarded to Authorities" ${report.status === 'Forwarded to Authorities' ? 'selected' : ''}>Forwarded to Authorities</option>
                                         <option value="Resolved" ${report.status === 'Resolved' ? 'selected' : ''}>Resolved</option>
                                         <option value="Flagged/Malicious" ${report.status === 'Flagged/Malicious' ? 'selected' : ''}>Flagged/Malicious</option>
                                     </select>
-                                    <button data-report-id="${reportId}" class="admin-btn">
+                                    <button data-report-id="${report.reportId}" class="admin-btn">
                                         Update Status
                                     </button>
                                 </div>
@@ -1704,11 +1769,11 @@
                             await updateReportStatus(reportId, newStatus);
                         });
                     });
-                });
-            } catch (error) {
-                console.error("Error loading admin reports:", error);
-                adminReportsList.innerHTML = `<div class="admin-card"><p class="text-center text-red-500">Error loading reports: ${error.message}</p></div>`;
-            }
+                } catch (error) {
+                    console.error("Error loading admin reports:", error);
+                    adminReportsList.innerHTML = `<div class="admin-card"><p class="text-center text-red-500">Error loading reports: ${error.message}</p></div>`;
+                }
+            }, 1000);
         }
 
         // --- Update Report Status (Admin Function) ---
@@ -1719,12 +1784,18 @@
             }
 
             try {
-                const reportRef = doc(db, `artifacts/${appId}/public/data/reports`, reportId);
-                await updateDoc(reportRef, {
-                    status: newStatus,
-                    updatedAt: new Date()
-                });
-                showMessageModal(`Report ${reportId} status updated to: ${newStatus}`);
+                // Find and update the report in demo storage
+                const reportIndex = demoReports.findIndex(report => report.reportId === reportId);
+                if (reportIndex !== -1) {
+                    demoReports[reportIndex].status = newStatus;
+                    demoReports[reportIndex].updatedAt = new Date();
+                    showMessageModal(`Report ${reportId} status updated to: ${newStatus}`);
+                    
+                    // Reload admin reports to show updated status
+                    loadAdminReports();
+                } else {
+                    showMessageModal(`Report ${reportId} not found.`);
+                }
             } catch (error) {
                 console.error("Error updating report status:", error);
                 showMessageModal(`Failed to update status for report ${reportId}: ${error.message}`);
