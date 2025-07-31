@@ -942,6 +942,34 @@
         .form-container.disabled .form-submit {
             cursor: not-allowed;
         }
+		
+		
+		 /* Add these new styles */
+        .evidence-preview {
+            margin-top: var(--space-md);
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+        
+        .evidence-thumbnail {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .admin-evidence-display {
+            margin-top: var(--space-md);
+        }
+        
+        .admin-evidence-image {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--gray-300);
+        }
     </style>
 </head>
 <body>
@@ -956,6 +984,10 @@
 
                 <!-- Navigation -->
                 <nav class="nav-container">
+                    <div id="user-status" style="text-align: center; margin-bottom: var(--space-lg); display: none;">
+                        <span id="current-user-info" style="background: var(--primary-100); color: var(--primary-800); padding: var(--space-sm) var(--space-md); border-radius: var(--radius-md); font-weight: 600; font-size: 0.875rem;"></span>
+                        <button id="logout-btn" style="background: var(--error-500); color: var(--white); border: none; padding: var(--space-sm) var(--space-md); border-radius: var(--radius-md); margin-left: var(--space-sm); font-weight: 600; font-size: 0.875rem; cursor: pointer;">Logout</button>
+                    </div>
                     <ul class="nav-list">
                         <li class="nav-item">
                             <a href="#home" class="nav-link">
@@ -963,13 +995,13 @@
                                 <span>Home</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="register-nav-item">
                             <a href="#register" class="nav-link">
                                 <i class="fas fa-user-plus"></i>
                                 <span>Register</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="login-nav-item">
                             <a href="#login" class="nav-link">
                                 <i class="fas fa-sign-in-alt"></i>
                                 <span>Login</span>
@@ -987,7 +1019,7 @@
                                 <span>Track Report</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="admin-nav-item">
                             <a href="#admin-panel" class="nav-link">
                                 <i class="fas fa-cog"></i>
                                 <span>Admin Panel</span>
@@ -1110,66 +1142,67 @@
                 </section>
 
                 <!-- File Report Section -->
-                <section id="file-report" class="section-content">
-                    <h2 class="text-center">File New Report</h2>
-                    <p class="text-center" style="margin-bottom: var(--space-2xl); color: var(--gray-600);">
-                        Help us protect animals by reporting incidents of cruelty or neglect
-                    </p>
-                    
-                    <!-- Login Prompt (shown when not logged in) -->
-                    <div id="file-report-login-prompt" class="login-prompt" style="display: none;">
-                        <i class="fas fa-lock"></i>
-                        <h3>Authentication Required</h3>
-                        <p>You need to be logged in to file a report. This helps us ensure the authenticity of reports and allows you to track your submissions.</p>
-                        <a href="#login" class="btn nav-link">
-                            <i class="fas fa-sign-in-alt"></i>
-                            Login to Continue
-                        </a>
-                    </div>
+<section id="file-report" class="section-content">
+    <h2 class="text-center">File New Report</h2>
+    <p class="text-center" style="margin-bottom: var(--space-2xl); color: var(--gray-600);">
+        Help us protect animals by reporting incidents of cruelty or neglect
+    </p>
+    
+    <!-- Login Prompt (shown when not logged in) -->
+    <div id="file-report-login-prompt" class="login-prompt" style="display: none;">
+        <i class="fas fa-lock"></i>
+        <h3>Authentication Required</h3>
+        <p>You need to be logged in to file a report. This helps us ensure the authenticity of reports and allows you to track your submissions.</p>
+        <a href="#login" class="btn nav-link">
+            <i class="fas fa-sign-in-alt"></i>
+            Login to Continue
+        </a>
+    </div>
 
-                    <!-- Report Form (shown when logged in) -->
-                    <div id="file-report-form-container" class="form-container">
-                        <form id="file-report-form">
-                            <div class="form-group">
-                                <label for="report-type" class="form-label">Type of Cruelty</label>
-                                <select id="report-type" name="crueltyType" required class="form-select">
-                                    <option value="">Select a type</option>
-                                    <option value="physical-abuse">Physical Abuse</option>
-                                    <option value="neglect">Neglect</option>
-                                    <option value="abandonment">Abandonment</option>
-                                    <option value="hoarding">Hoarding</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="report-location" class="form-label">Location</label>
-                                <input type="text" id="report-location" name="location" required class="form-input">
-                            </div>
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label for="report-date" class="form-label">Date of Incident</label>
-                                    <input type="date" id="report-date" name="date" required class="form-input">
-                                </div>
-                                <div class="form-group">
-                                    <label for="report-time" class="form-label">Time of Incident</label>
-                                    <input type="time" id="report-time" name="time" required class="form-input">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="report-description" class="form-label">Description</label>
-                                <textarea id="report-description" name="description" rows="5" required class="form-textarea"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="report-evidence" class="form-label">Image/Video Evidence (Optional)</label>
-                                <input type="file" id="report-evidence" name="evidence" accept="image/*,video/*" multiple class="form-input">
-                            </div>
-                            <button type="submit" class="form-submit">
-                                <i class="fas fa-paper-plane"></i>
-                                Submit Report
-                            </button>
-                        </form>
-                    </div>
-                </section>
+    <!-- Report Form (shown when logged in) -->
+    <div id="file-report-form-container" class="form-container">
+        <form id="file-report-form">
+            <div class="form-group">
+                <label for="report-type" class="form-label">Type of Cruelty</label>
+                <select id="report-type" name="crueltyType" required class="form-select">
+                    <option value="">Select a type</option>
+                    <option value="physical-abuse">Physical Abuse</option>
+                    <option value="neglect">Neglect</option>
+                    <option value="abandonment">Abandonment</option>
+                    <option value="hoarding">Hoarding</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="report-location" class="form-label">Location</label>
+                <input type="text" id="report-location" name="location" required class="form-input">
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="report-date" class="form-label">Date of Incident</label>
+                    <input type="date" id="report-date" name="date" required class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="report-time" class="form-label">Time of Incident</label>
+                    <input type="time" id="report-time" name="time" required class="form-input">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="report-description" class="form-label">Description</label>
+                <textarea id="report-description" name="description" rows="5" required class="form-textarea"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="report-evidence" class="form-label">Image Evidence (Optional)</label>
+                <input type="file" id="report-evidence" name="evidence" accept="image/*" class="form-input">
+                <div id="evidence-preview" class="evidence-preview"></div>
+            </div>
+            <button type="submit" class="form-submit">
+                <i class="fas fa-paper-plane"></i>
+                Submit Report
+            </button>
+        </form>
+    </div>
+</section>
 
                 <!-- Track Report Status Section -->
                 <section id="track-report" class="section-content">
@@ -1243,6 +1276,14 @@
                 fullName: 'Demo User',
                 mobileNumber: '+1234567890',
                 userId: 'demo-user-1'
+            },
+            {
+                email: 'admin@paws.com',
+                password: 'admin123',
+                fullName: 'Admin User',
+                mobileNumber: '+1234567890',
+                userId: 'admin-user-1',
+                isAdmin: true
             }
         ];
         
@@ -1268,20 +1309,74 @@
             const modal = document.getElementById('message-modal');
             modal.style.display = 'none';
         }
+		
+		   // File Upload Handling
+        document.getElementById('report-evidence').addEventListener('change', function(e) {
+            const previewContainer = document.getElementById('evidence-preview');
+            previewContainer.innerHTML = '';
+            
+            Array.from(e.target.files).forEach(file => {
+                if (!file.type.match('image.*')) {
+                    showMessageModal("Only image files are supported in this demo");
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.classList.add('evidence-thumbnail');
+                    previewContainer.appendChild(img);
+                }
+                reader.readAsDataURL(file);
+            });
+        });
+
+
+        // Function to update UI based on authentication status
+        function updateUIForAuthentication() {
+            const userStatus = document.getElementById('user-status');
+            const currentUserInfo = document.getElementById('current-user-info');
+            const logoutBtn = document.getElementById('logout-btn');
+            const registerNavItem = document.getElementById('register-nav-item');
+            const loginNavItem = document.getElementById('login-nav-item');
+            const adminNavItem = document.getElementById('admin-nav-item');
+            
+            if (userId && isUserAuthenticated) {
+                // User is logged in
+                const currentUser = demoUsers.find(u => u.userId === userId);
+                const userType = isAdmin ? 'Administrator' : 'User';
+                currentUserInfo.textContent = `${currentUser.fullName} (${userType})`;
+                userStatus.style.display = 'block';
+                
+                // Hide register/login nav items
+                registerNavItem.style.display = 'none';
+                loginNavItem.style.display = 'none';
+                
+                // Show/hide admin nav based on admin status
+                adminNavItem.style.display = isAdmin ? 'block' : 'none';
+                
+            } else {
+                // User is not logged in
+                userStatus.style.display = 'none';
+                registerNavItem.style.display = 'block';
+                loginNavItem.style.display = 'block';
+                adminNavItem.style.display = 'none';
+            }
+        }
 
         // Function to update File Report section based on authentication status
         function updateFileReportSection() {
             const loginPrompt = document.getElementById('file-report-login-prompt');
             const formContainer = document.getElementById('file-report-form-container');
             
-            // Check both userId and current authentication status
-            const currentUser = auth.currentUser;
-            const isAuthenticated = userId && currentUser && !currentUser.isAnonymous;
+            // Check if user is authenticated using our demo system
+            const isAuthenticated = userId && isUserAuthenticated;
             
             if (isAuthenticated) {
                 // User is logged in - show the form
                 loginPrompt.style.display = 'none';
-                formContainer.style.display = 'flex';
+                formContainer.style.display = 'block';
                 formContainer.classList.remove('disabled');
             } else {
                 // User is not logged in - show the login prompt
@@ -1316,9 +1411,37 @@
             isUserAuthenticated = false;
             
             // Update UI to show logged out state
+            updateUIForAuthentication();
             updateFileReportSection();
             document.getElementById('user-reports-table-body').innerHTML = '<tr><td colspan="5" class="empty-state"><i class="fas fa-search"></i><p>No reports found or please log in.</p></td></tr>';
             document.getElementById('admin-reports-list').innerHTML = '<div class="empty-state"><i class="fas fa-cog"></i><p>No reports found or only accessible by admin.</p></div>';
+            
+            // Add logout functionality
+            document.getElementById('logout-btn').addEventListener('click', function() {
+                // Clear authentication state
+                userId = null;
+                isAdmin = false;
+                isUserAuthenticated = false;
+                
+                // Update UI
+                updateUIForAuthentication();
+                updateFileReportSection();
+                
+                // Clear forms
+                document.getElementById('login-form').reset();
+                document.getElementById('register-form').reset();
+                document.getElementById('file-report-form').reset();
+                
+                // Reset tables
+                document.getElementById('user-reports-table-body').innerHTML = '<tr><td colspan="5" class="empty-state"><i class="fas fa-search"></i><p>No reports found or please log in.</p></td></tr>';
+                document.getElementById('admin-reports-list').innerHTML = '<div class="empty-state"><i class="fas fa-cog"></i><p>No reports found or only accessible by admin.</p></div>';
+                
+                // Show logout message and redirect to home
+                showMessageModal("You have been successfully logged out.");
+                setTimeout(() => {
+                    showSection('home');
+                }, 1500);
+            });
         });
 
         // --- Navigation Logic ---
@@ -1494,21 +1617,27 @@
                     // Set authentication state
                     userId = user.userId;
                     isUserAuthenticated = true;
-                    isAdmin = false;
+                    isAdmin = user.isAdmin || false;
                     
                     // Success message
-                    showMessageModal(`Welcome back! You have successfully logged in as ${user.email}.`);
+                    const userType = isAdmin ? 'Administrator' : 'User';
+                    showMessageModal(`Welcome back! You have successfully logged in as ${user.email} (${userType}).`);
                     
                     // Reset form and redirect
                     document.getElementById('login-form').reset();
                     
                     // Update UI
+                    updateUIForAuthentication();
                     updateFileReportSection();
-                    loadUserReports();
+                    if (isAdmin) {
+                        loadAdminReports();
+                    } else {
+                        loadUserReports();
+                    }
                     
                     // Small delay before redirect to show success message
                     setTimeout(() => {
-                        showSection('home');
+                        showSection(isAdmin ? 'admin-panel' : 'home');
                     }, 1500);
                     
                 } else {
@@ -1540,69 +1669,62 @@
             }
         });
 
-        // --- Report Filing Function ---
-        document.getElementById('file-report-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
+      // Modified Report Submission
+    document.getElementById('file-report-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-            // Check authentication status using our flag
-            if (!isUserAuthenticated) {
-                showMessageModal("Please log in to file a report.");
-                showSection('login');
-                return;
-            }
+        if (!isUserAuthenticated || !userId) {
+            showMessageModal("Please log in to file a report.");
+            showSection('login');
+            return;
+        }
 
-            // Double-check with Firebase auth
-            const currentUser = auth.currentUser;
-            if (!currentUser || currentUser.isAnonymous) {
-                showMessageModal("Please log in with a valid account to file a report.");
-                showSection('login');
-                return;
-            }
+        const crueltyType = document.getElementById('report-type').value;
+        const location = document.getElementById('report-location').value;
+        const date = document.getElementById('report-date').value;
+        const time = document.getElementById('report-time').value;
+        const description = document.getElementById('report-description').value;
+        const evidenceFiles = document.getElementById('report-evidence').files;
+        
+        let evidenceData = [];
 
-            const crueltyType = document.getElementById('report-type').value;
-            const location = document.getElementById('report-location').value;
-            const date = document.getElementById('report-date').value;
-            const time = document.getElementById('report-time').value;
-            const description = document.getElementById('report-description').value;
-            const evidenceFiles = document.getElementById('report-evidence').files; // FileList object
+        // Process files
+        if (evidenceFiles.length > 0) {
+            Array.from(evidenceFiles).forEach(file => {
+                if (file.type.match('image.*')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        evidenceData.push({
+                            name: file.name,
+                            type: file.type,
+                            data: e.target.result.split(',')[1] // Base64 data
+                        });
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
 
-            // In a real application, you would upload files to Firebase Storage first
-            // and then store the download URLs in Firestore. For this example, we'll
-            // just note that evidence is optional and not handle file uploads.
-            let evidenceUrls = [];
-            if (evidenceFiles.length > 0) {
-                // Placeholder for file upload logic
-                console.log("Evidence files selected:", evidenceFiles);
-                showMessageModal("File uploads are not implemented in this demo. Report will be submitted without evidence files.");
-            }
-
-            try {
-                // Create new report
-                const newReport = {
-                    reportId: 'RPT-' + Date.now(),
-                    userId: userId,
-                    crueltyType: crueltyType,
-                    location: location,
-                    date: date,
-                    time: time,
-                    description: description,
-                    evidenceUrls: evidenceUrls,
-                    status: 'Received',
-                    submittedAt: new Date()
-                };
-                
-                demoReports.push(newReport);
-                console.log("Report filed successfully:", newReport);
-                
-                showMessageModal(`Report filed successfully! Your Report ID is: ${newReport.reportId}`);
-                document.getElementById('file-report-form').reset();
-                showSection('track-report'); // Redirect to track report
-            } catch (error) {
-                console.error("Error filing report:", error);
-                showMessageModal(`Failed to file report: ${error.message}`);
-            }
-        });
-
+        // Create new report with evidence
+        const newReport = {
+            reportId: 'RPT-' + Date.now(),
+            userId: userId,
+            crueltyType: crueltyType,
+            location: location,
+            date: date,
+            time: time,
+            description: description,
+            evidence: evidenceData,
+            status: 'Received',
+            submittedAt: new Date().toISOString()
+        };
+        
+        demoReports.push(newReport);
+        showMessageModal(`Report filed successfully! Your Report ID is: ${newReport.reportId}`);
+        document.getElementById('file-report-form').reset();
+        document.getElementById('evidence-preview').innerHTML = '';
+        showSection('track-report');
+    });
         // --- Load User Reports ---
         async function loadUserReports() {
             if (!userId) {
@@ -1644,73 +1766,114 @@
             }, 1000);
         }
 
-        // --- Load Admin Reports ---
-        async function loadAdminReports() {
-            if (!isAdmin) {
-                document.getElementById('admin-reports-list').innerHTML = '<div class="admin-card"><p class="text-center text-gray-500">Access Denied: Only administrators can view this panel.</p></div>';
+      async function loadAdminReports() {
+    if (!isAdmin) {
+        document.getElementById('admin-reports-list').innerHTML = '<div class="admin-card"><p class="text-center text-gray-500">Access Denied: Only administrators can view this panel.</p></div>';
+        return;
+    }
+
+    const adminReportsList = document.getElementById('admin-reports-list');
+    adminReportsList.innerHTML = '<div class="loading">Loading admin reports...<div class="loading-spinner"></div></div>';
+
+    // Simulate network delay
+    setTimeout(() => {
+        try {
+            if (demoReports.length === 0) {
+                adminReportsList.innerHTML = '<div class="empty-state"><i class="fas fa-clipboard-list"></i><p>No reports to review.</p></div>';
                 return;
             }
 
-            const adminReportsList = document.getElementById('admin-reports-list');
-            adminReportsList.innerHTML = '<div class="loading">Loading admin reports...<div class="loading-spinner"></div></div>';
-
-            try {
-                // Fetch all reports for admin view
-                const q = query(collection(db, `artifacts/${appId}/public/data/reports`));
-
-                onSnapshot(q, (snapshot) => {
-                    if (snapshot.empty) {
-                        adminReportsList.innerHTML = '<div class="empty-state"><i class="fas fa-clipboard-list"></i><p>No reports to review.</p></div>';
-                        return;
-                    }
-
-                    adminReportsList.innerHTML = ''; // Clear existing cards
-                    snapshot.forEach((doc) => {
-                        const report = doc.data();
-                        const reportId = doc.id;
-                        const card = `
-                            <div class="admin-card">
-                                <div class="admin-card-header">
-                                    <h3 class="admin-card-title">Report ID: ${reportId}</h3>
-                                    <span class="status-badge ${report.status === 'New' ? 'status-received' : report.status === 'Under Review' ? 'status-review' : 'status-resolved'}">${report.status}</span>
-                                </div>
-                                <p><span class="font-medium">User ID:</span> ${report.userId}</p>
-                                <p><span class="font-medium">Type:</span> ${report.crueltyType}</p>
-                                <p><span class="font-medium">Location:</span> ${report.location}</p>
-                                <p><span class="font-medium">Date/Time:</span> ${report.date}, ${report.time}</p>
-                                <p><span class="font-medium">Description:</span> ${report.description}</p>
-                                <div class="admin-controls">
-                                    <select id="status-select-${reportId}" class="admin-select">
-                                        <option value="Received" ${report.status === 'Received' ? 'selected' : ''}>Received</option>
-                                        <option value="Under Review" ${report.status === 'Under Review' ? 'selected' : ''}>Under Review</option>
-                                        <option value="Forwarded to Authorities" ${report.status === 'Forwarded to Authorities' ? 'selected' : ''}>Forwarded to Authorities</option>
-                                        <option value="Resolved" ${report.status === 'Resolved' ? 'selected' : ''}>Resolved</option>
-                                        <option value="Flagged/Malicious" ${report.status === 'Flagged/Malicious' ? 'selected' : ''}>Flagged/Malicious</option>
-                                    </select>
-                                    <button data-report-id="${reportId}" class="admin-btn">
-                                        Update Status
-                                    </button>
-                                </div>
+            adminReportsList.innerHTML = ''; // Clear existing cards
+            demoReports.forEach((report) => {
+                // Create evidence display HTML if images exist
+                let evidenceHtml = '';
+                if (report.evidence && report.evidence.length > 0) {
+                    evidenceHtml = `
+                        <div class="admin-evidence-display">
+                            <h4 class="form-label">Evidence Images:</h4>
+                            <div class="evidence-preview">
+                                ${report.evidence.map(img => `
+                                    <img src="data:${img.type};base64,${img.data}" 
+                                         alt="Evidence" 
+                                         class="admin-evidence-image"
+                                         onclick="openImageModal('data:${img.type};base64,${img.data}')">
+                                `).join('')}
                             </div>
-                        `;
-                        adminReportsList.innerHTML += card;
-                    });
+                        </div>
+                    `;
+                }
 
-                    // Attach event listeners to update buttons after rendering
-                    document.querySelectorAll('.admin-btn').forEach(button => {
-                        button.addEventListener('click', async (event) => {
-                            const reportId = event.target.dataset.reportId;
-                            const newStatus = document.getElementById(`status-select-${reportId}`).value;
-                            await updateReportStatus(reportId, newStatus);
-                        });
-                    });
+                const card = `
+                    <div class="admin-card">
+                        <div class="admin-card-header">
+                            <h3 class="admin-card-title">Report ID: ${report.reportId}</h3>
+                            <span class="status-badge ${report.status === 'Received' ? 'status-received' : report.status === 'Under Review' ? 'status-review' : 'status-resolved'}">${report.status}</span>
+                        </div>
+                        <p><span class="font-medium">User ID:</span> ${report.userId}</p>
+                        <p><span class="font-medium">Type:</span> ${report.crueltyType}</p>
+                        <p><span class="font-medium">Location:</span> ${report.location}</p>
+                        <p><span class="font-medium">Date/Time:</span> ${report.date}, ${report.time}</p>
+                        <p><span class="font-medium">Description:</span> ${report.description}</p>
+                        ${evidenceHtml}
+                        <div class="admin-controls">
+                            <select id="status-select-${report.reportId}" class="admin-select">
+                                <option value="Received" ${report.status === 'Received' ? 'selected' : ''}>Received</option>
+                                <option value="Under Review" ${report.status === 'Under Review' ? 'selected' : ''}>Under Review</option>
+                                <option value="Forwarded to Authorities" ${report.status === 'Forwarded to Authorities' ? 'selected' : ''}>Forwarded to Authorities</option>
+                                <option value="Resolved" ${report.status === 'Resolved' ? 'selected' : ''}>Resolved</option>
+                                <option value="Flagged/Malicious" ${report.status === 'Flagged/Malicious' ? 'selected' : ''}>Flagged/Malicious</option>
+								<option value="Incomplete" ${report.status === 'Incomplete' ? 'selected' : ''}>Incomplete</option>
+                            </select>
+                            <button data-report-id="${report.reportId}" class="admin-btn">
+                                Update Status
+                            </button>
+                        </div>
+                    </div>
+                `;
+                adminReportsList.innerHTML += card;
+            });
+
+            // Attach event listeners to update buttons after rendering
+            document.querySelectorAll('.admin-btn').forEach(button => {
+                button.addEventListener('click', async (event) => {
+                    const reportId = event.target.dataset.reportId;
+                    const newStatus = document.getElementById(`status-select-${reportId}`).value;
+                    await updateReportStatus(reportId, newStatus);
                 });
-            } catch (error) {
-                console.error("Error loading admin reports:", error);
-                adminReportsList.innerHTML = `<div class="admin-card"><p class="text-center text-red-500">Error loading reports: ${error.message}</p></div>`;
-            }
+            });
+        } catch (error) {
+            console.error("Error loading admin reports:", error);
+            adminReportsList.innerHTML = `<div class="admin-card"><p class="text-center text-red-500">Error loading reports: ${error.message}</p></div>`;
         }
+    }, 1000);
+}
 
+// Function to handle image modal
+function openImageModal(src) {
+    const modal = document.createElement('div');
+    modal.style.position = 'fixed';
+    modal.style.top = '0';
+    modal.style.left = '0';
+    modal.style.width = '100%';
+    modal.style.height = '100%';
+    modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
+    modal.style.display = 'flex';
+    modal.style.alignItems = 'center';
+    modal.style.justifyContent = 'center';
+    modal.style.zIndex = '10000';
+    modal.style.cursor = 'zoom-out';
+    
+    const img = document.createElement('img');
+    img.src = src;
+    img.style.maxWidth = '90%';
+    img.style.maxHeight = '90%';
+    img.style.objectFit = 'contain';
+    
+    modal.appendChild(img);
+    modal.onclick = () => document.body.removeChild(modal);
+    
+    document.body.appendChild(modal);
+}
         // --- Update Report Status (Admin Function) ---
         async function updateReportStatus(reportId, newStatus) {
             if (!isAdmin) {
@@ -1719,12 +1882,18 @@
             }
 
             try {
-                const reportRef = doc(db, `artifacts/${appId}/public/data/reports`, reportId);
-                await updateDoc(reportRef, {
-                    status: newStatus,
-                    updatedAt: new Date()
-                });
-                showMessageModal(`Report ${reportId} status updated to: ${newStatus}`);
+                // Find and update the report in demo storage
+                const reportIndex = demoReports.findIndex(report => report.reportId === reportId);
+                if (reportIndex !== -1) {
+                    demoReports[reportIndex].status = newStatus;
+                    demoReports[reportIndex].updatedAt = new Date();
+                    showMessageModal(`Report ${reportId} status updated to: ${newStatus}`);
+                    
+                    // Reload admin reports to show updated status
+                    loadAdminReports();
+                } else {
+                    showMessageModal(`Report ${reportId} not found.`);
+                }
             } catch (error) {
                 console.error("Error updating report status:", error);
                 showMessageModal(`Failed to update status for report ${reportId}: ${error.message}`);
