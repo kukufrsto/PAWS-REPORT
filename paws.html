@@ -573,8 +573,9 @@
         }
 
         .status-received { background: var(--info-50); color: var(--info-600); }
-        .status-review { background: var(--warning-50); color: var(--warning-600); }
         .status-resolved { background: var(--success-50); color: var(--success-600); }
+        .status-under-review { background: var(--warning-50); color: var(--warning-600); }
+
 
         /* Admin Cards */
         .admin-card {
@@ -1220,8 +1221,23 @@
                             <p>No reports found in the database.</p>
                         </div>
                         
-                        <div id="adminReportList">
-                            </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Reporter</th>
+                                        <th>Location</th>
+                                        <th>Type</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminTableBody">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </section>
 
@@ -1335,7 +1351,7 @@
     const reportLoadingState = document.getElementById('reportLoadingState');
     const reportEmptyState = document.getElementById('reportEmptyState');
 
-    const adminReportList = document.getElementById('adminReportList');
+    const adminTableBody = document.getElementById('adminTableBody');
     const adminLoadingState = document.getElementById('adminLoadingState');
     const adminEmptyState = document.getElementById('adminEmptyState');
     const adminPanel = document.getElementById('adminPanel');
@@ -1492,19 +1508,21 @@ auth.onAuthStateChanged(user => {
 
         // Check if the user is the admin
         if (user.email === 'admin@gmail.com') {
-            // Admin user: hide all other nav links, show only admin
+            // Admin user: hide all other nav links, hide admin nav item, and show admin panel
             homeNavItem.style.display = 'none';
             reportNavItem.style.display = 'none';
             trackNavItem.style.display = 'none';
-            adminNavItem.style.display = 'block';
-            adminPanel.style.display = 'block';
+            adminNavItem.style.display = 'none';
+            
+            // Set admin panel as the active section
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.classList.remove('active');
+                section.style.display = 'none';
+            });
+            adminSection.style.display = 'block';
+            adminSection.classList.add('active');
+            
             loadAdminReports();
-
-            // Also hide regular user sections
-            reportSection.style.display = 'none';
-            trackSection.style.display = 'none';
-            reportFormContainer.style.display = 'none';
-            reportLoginPrompt.style.display = 'none';
 
         } else {
             // Regular user: show all regular links, hide admin
@@ -1512,11 +1530,15 @@ auth.onAuthStateChanged(user => {
             reportNavItem.style.display = 'block';
             trackNavItem.style.display = 'block';
             adminNavItem.style.display = 'none';
-            adminPanel.style.display = 'none';
 
-            // Show regular user sections
-            reportSection.style.display = 'block';
-            trackSection.style.display = 'block';
+            // Set home as the active section for regular users on login
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.classList.remove('active');
+                section.style.display = 'none';
+            });
+            homeSection.style.display = 'block';
+            homeSection.classList.add('active');
+
             reportFormContainer.style.display = 'block';
             reportLoginPrompt.style.display = 'none';
             loadUserReports(user.uid);
@@ -1529,6 +1551,7 @@ auth.onAuthStateChanged(user => {
         homeNavItem.style.display = 'block';
         reportNavItem.style.display = 'block';
         trackNavItem.style.display = 'block';
+        adminNavItem.style.display = 'none';
 
         if (reportFormContainer) {
             reportFormContainer.style.display = 'none';
@@ -1537,12 +1560,14 @@ auth.onAuthStateChanged(user => {
             reportLoginPrompt.style.display = 'block';
         }
         trackTableBody.innerHTML = '';
-        if (adminPanel) {
-            adminPanel.style.display = 'none';
-        }
-        if (adminNavItem) {
-            adminNavItem.style.display = 'none';
-        }
+        
+        // Ensure home section is visible on logout
+        document.querySelectorAll('.section-content').forEach(section => {
+            section.classList.remove('active');
+            section.style.display = 'none';
+        });
+        homeSection.style.display = 'block';
+        homeSection.classList.add('active');
     }
 });
 
@@ -1592,7 +1617,7 @@ async function submitReport(e) {
         // Clear the evidence preview as well
         document.getElementById('evidencePreview').innerHTML = '';
 
-        // *** NEW: Reload reports after successful submission
+        // Reload reports after successful submission
         loadUserReports(currentUser.uid);
 
     } catch (error) {
@@ -1645,12 +1670,13 @@ async function submitReport(e) {
             });
     }
 
-
+    // --- Load Admin Reports ---
     function loadAdminReports() {
-        if (!adminReportList) return;
-        adminReportList.innerHTML = '';
+        if (!adminTableBody) return;
+        adminTableBody.innerHTML = '';
         adminLoadingState.style.display = 'flex';
         adminEmptyState.style.display = 'none';
+
         db.collection("reports")
             .orderBy("timestamp", "desc")
             .get()
@@ -1663,33 +1689,29 @@ async function submitReport(e) {
                 let reportsHtml = '';
                 querySnapshot.forEach(doc => {
                     const report = { id: doc.id, ...doc.data() };
+                    const statusClass = report.status.toLowerCase().replace(' ', '-');
                     const date = report.date ? new Date(report.date).toLocaleDateString() : 'N/A';
-                    const evidenceHtml = report.evidenceURL ? `<img src="${report.evidenceURL}" alt="Evidence" class="admin-evidence-image">` : '';
 
                     reportsHtml += `
-                        <div class="admin-card">
-                            <div class="admin-card-header">
-                                <h4 class="admin-card-title">${report.title}</h4>
-                                <div class="admin-controls">
-                                    <select class="admin-select" data-report-id="${report.id}">
-                                        <option value="Received" ${report.status === 'Received' ? 'selected' : ''}>Received</option>
-                                        <option value="Under Review" ${report.status === 'Under Review' ? 'selected' : ''}>Under Review</option>
-                                        <option value="Resolved" ${report.status === 'Resolved' ? 'selected' : ''}>Resolved</option>
-                                    </select>
-                                    <button class="admin-btn update-btn" data-report-id="${report.id}">Update Status</button>
-                                </div>
-                            </div>
-                            <p><strong>Report ID:</strong> ${report.id}</p>
-                            <p><strong>Reporter:</strong> ${report.userName}</p>
-                            <p><strong>Date:</strong> ${date} at ${report.time}</p>
-                            <p><strong>Location:</strong> ${report.location}</p>
-                            <p><strong>Type:</strong> ${report.type}</p>
-                            <p><strong>Description:</strong> ${report.description}</p>
-                            ${report.evidenceURL ? `<div class="admin-evidence-display"><strong>Evidence:</strong><br>${evidenceHtml}</div>` : ''}
-                        </div>
+                        <tr>
+                            <td>${report.title}</td>
+                            <td>${report.userName}</td>
+                            <td>${report.location}</td>
+                            <td>${report.type}</td>
+                            <td>${date}</td>
+                            <td><span class="status-badge status-${statusClass}">${report.status}</span></td>
+                            <td>
+                                <select class="admin-select" data-report-id="${report.id}">
+                                    <option value="Received" ${report.status === 'Received' ? 'selected' : ''}>Received</option>
+                                    <option value="Under Review" ${report.status === 'Under Review' ? 'selected' : ''}>Under Review</option>
+                                    <option value="Resolved" ${report.status === 'Resolved' ? 'selected' : ''}>Resolved</option>
+                                </select>
+                                <button class="admin-btn update-btn" data-report-id="${report.id}" style="margin-left: 5px;">Update</button>
+                            </td>
+                        </tr>
                     `;
                 });
-                adminReportList.innerHTML = reportsHtml;
+                adminTableBody.innerHTML = reportsHtml;
 
                 document.querySelectorAll('.update-btn').forEach(button => {
                     button.addEventListener('click', handleUpdateReportStatus);
@@ -1704,11 +1726,13 @@ async function submitReport(e) {
 
     async function handleUpdateReportStatus(e) {
         const reportId = e.target.getAttribute('data-report-id');
-        const statusSelect = document.querySelector(`.admin-select[data-report-id="${reportId}"]`);
+        const statusSelect = e.target.closest('tr').querySelector('.admin-select');
         const newStatus = statusSelect.value;
+        
         try {
             await db.collection("reports").doc(reportId).update({ status: newStatus });
             showMessageModal("Success", `Report ${reportId} status updated to ${newStatus}.`);
+            loadAdminReports();
         } catch (error) {
             console.error("Error updating report status:", error);
             showMessageModal("Error", `Failed to update report status. Error: ${error.message}`);
