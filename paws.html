@@ -729,6 +729,188 @@
             background: var(--gray-400);
         }
 
+        /* Connection Status */
+        .connection-status {
+            background: var(--success-50);
+            border: 2px solid var(--success-200);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            text-align: center;
+        }
+
+        .connection-status.connected {
+            background: var(--success-50);
+            border-color: var(--success-200);
+        }
+
+        .connection-status.error {
+            background: var(--error-50);
+            border-color: var(--error-200);
+        }
+
+        .connection-status h4 {
+            margin-bottom: var(--space-sm);
+        }
+
+        .connection-status.connected h4 {
+            color: var(--success-800);
+        }
+
+        .connection-status.error h4 {
+            color: var(--error-800);
+        }
+
+        .connection-status p {
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        .connection-status.connected p {
+            color: var(--success-700);
+        }
+
+        .connection-status.error p {
+            color: var(--error-700);
+        }
+
+        /* Add these new styles */
+        .evidence-preview {
+            margin-top: var(--space-md);
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+        
+        .evidence-thumbnail {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .admin-evidence-display {
+            margin-top: var(--space-md);
+        }
+        
+        .admin-evidence-image {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--gray-300);
+        }
+
+        /* Login Prompt */
+        .login-prompt {
+            text-align: center;
+            padding: var(--space-4xl);
+            background: linear-gradient(135deg, var(--primary-50), var(--secondary-50));
+            border-radius: var(--radius-xl);
+            border: 2px dashed var(--primary-300);
+        }
+
+        .login-prompt i {
+            font-size: 4rem;
+            color: var(--primary-500);
+            margin-bottom: var(--space-lg);
+            opacity: 0.8;
+        }
+
+        .login-prompt h3 {
+            color: var(--gray-800);
+            margin-bottom: var(--space-md);
+        }
+
+        .login-prompt p {
+            color: var(--gray-600);
+            font-size: 1.125rem;
+            margin-bottom: var(--space-2xl);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .login-prompt .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-md) var(--space-xl);
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            color: var(--white);
+            text-decoration: none;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            transition: all var(--transition-normal);
+            box-shadow: var(--shadow-md);
+        }
+
+        .login-prompt .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+        }
+
+        /* Disabled form styling */
+        .form-container.disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .form-container.disabled .form-input,
+        .form-container.disabled .form-select,
+        .form-container.disabled .form-textarea,
+        .form-container.disabled .form-submit {
+            cursor: not-allowed;
+        }
+
+        /* Loading States */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-3xl);
+            color: var(--gray-600);
+            font-size: 1.125rem;
+            font-weight: 500;
+            gap: var(--space-md);
+        }
+
+        .loading-spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--gray-200);
+            border-top: 3px solid var(--primary-500);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Empty States */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-3xl);
+            color: var(--gray-600);
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: var(--space-lg);
+            opacity: 0.4;
+            color: var(--gray-400);
+        }
+
+        .empty-state p {
+            margin: 0;
+            color: var(--gray-600);
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
@@ -832,157 +1014,22 @@
                 padding: var(--space-lg);
             }
         }
-
-        /* Loading States */
-        .loading {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: var(--space-3xl);
-            color: var(--gray-600);
-            font-size: 1.125rem;
-            font-weight: 500;
-            gap: var(--space-md);
-        }
-
-        .loading-spinner {
-            width: 24px;
-            height: 24px;
-            border: 3px solid var(--gray-200);
-            border-top: 3px solid var(--primary-500);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Empty States */
-        .empty-state {
-            text-align: center;
-            padding: var(--space-3xl);
-            color: var(--gray-600);
-            font-size: 1.125rem;
-            font-weight: 500;
-        }
-
-        .empty-state i {
-            font-size: 3rem;
-            margin-bottom: var(--space-lg);
-            opacity: 0.4;
-            color: var(--gray-400);
-        }
-
-        .empty-state p {
-            margin: 0;
-            color: var(--gray-600);
-        }
-
-        /* Login Prompt */
-        .login-prompt {
-            text-align: center;
-            padding: var(--space-4xl);
-            background: linear-gradient(135deg, var(--primary-50), var(--secondary-50));
-            border-radius: var(--radius-xl);
-            border: 2px dashed var(--primary-300);
-        }
-
-        .login-prompt i {
-            font-size: 4rem;
-            color: var(--primary-500);
-            margin-bottom: var(--space-lg);
-            opacity: 0.8;
-        }
-
-        .login-prompt h3 {
-            color: var(--gray-800);
-            margin-bottom: var(--space-md);
-        }
-
-        .login-prompt p {
-            color: var(--gray-600);
-            font-size: 1.125rem;
-            margin-bottom: var(--space-2xl);
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .login-prompt .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-sm);
-            padding: var(--space-md) var(--space-xl);
-            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
-            color: var(--white);
-            text-decoration: none;
-            border-radius: var(--radius-lg);
-            font-weight: 600;
-            transition: all var(--transition-normal);
-            box-shadow: var(--shadow-md);
-        }
-
-        .login-prompt .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-            background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
-        }
-
-        /* Disabled form styling */
-        .form-container.disabled {
-            pointer-events: none;
-            opacity: 0.5;
-        }
-
-        .form-container.disabled .form-input,
-        .form-container.disabled .form-select,
-        .form-container.disabled .form-textarea,
-        .form-container.disabled .form-submit {
-            cursor: not-allowed;
-        }
-		
-		
-		 /* Add these new styles */
-        .evidence-preview {
-            margin-top: var(--space-md);
-            display: flex;
-            flex-wrap: wrap;
-            gap: var(--space-sm);
-        }
-        
-        .evidence-thumbnail {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--gray-200);
-        }
-        
-        .admin-evidence-display {
-            margin-top: var(--space-md);
-        }
-        
-        .admin-evidence-image {
-            max-width: 100%;
-            max-height: 200px;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--gray-300);
-        }
     </style>
 </head>
 <body>
     <div class="main-wrapper">
         <div class="container">
             <div class="content-card">
-                <!-- Header Section -->
+                <div id="connection-status" class="connection-status" style="display: none;">
+                    <h4 id="status-title"><i class="fas fa-check-circle"></i> Firebase Connected</h4>
+                    <p id="status-message">Successfully connected to Firebase services</p>
+                </div>
+
                 <header class="header">
                     <h1><i class="fas fa-paw"></i> PAWS Reporting System</h1>
                     <p>Streamlining animal cruelty reports in the Philippines with modern technology and compassionate care</p>
                 </header>
 
-                <!-- Navigation -->
                 <nav class="nav-container">
                     <div id="user-status" style="text-align: center; margin-bottom: var(--space-lg); display: none;">
                         <span id="current-user-info" style="background: var(--primary-100); color: var(--primary-800); padding: var(--space-sm) var(--space-md); border-radius: var(--radius-md); font-weight: 600; font-size: 0.875rem;"></span>
@@ -996,909 +1043,731 @@
                             </a>
                         </li>
                         <li class="nav-item" id="register-nav-item">
-                            <a href="#register" class="nav-link">
+                            <a href="#register" class="nav-link" id="openRegisterModal">
                                 <i class="fas fa-user-plus"></i>
                                 <span>Register</span>
                             </a>
                         </li>
                         <li class="nav-item" id="login-nav-item">
-                            <a href="#login" class="nav-link">
+                            <a href="#login" class="nav-link" id="openLoginModal">
                                 <i class="fas fa-sign-in-alt"></i>
                                 <span>Login</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#file-report" class="nav-link">
+                            <a href="#report" class="nav-link">
                                 <i class="fas fa-file-alt"></i>
-                                <span>File Report</span>
+                                <span>Submit Report</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#track-report" class="nav-link">
+                            <a href="#track" class="nav-link">
                                 <i class="fas fa-search"></i>
-                                <span>Track Report</span>
+                                <span>Track Reports</span>
                             </a>
-                        </li>
-                        <li class="nav-item" id="admin-nav-item">
-                            <a href="#admin-panel" class="nav-link">
-                                <i class="fas fa-cog"></i>
+                        <li class="nav-item" id="admin-nav-item" style="display: none;">
+                            <a href="#admin" class="nav-link">
+                                <i class="fas fa-user-shield"></i>
                                 <span>Admin Panel</span>
                             </a>
                         </li>
                     </ul>
                 </nav>
 
-                <!-- Homepage Section -->
                 <section id="home" class="section-content active">
                     <div class="hero-section">
                         <div class="hero-content">
-                            <h2>Report Animal Cruelty, Make a Difference!</h2>
-                            <p>Your voice helps protect animals across the Philippines. Together, we can create a safer world for all creatures.</p>
+                            <h2>Your Voice for the Voiceless</h2>
+                            <p>An easy and effective way to report animal cruelty. Help us create a safer community for all animals.</p>
                             <div class="hero-buttons">
-                                <a href="#file-report" class="btn btn-primary nav-link">
-                                    <i class="fas fa-file-alt"></i>
-                                    File a Report Now
-                                </a>
-                                <a href="#track-report" class="btn btn-secondary nav-link">
-                                    <i class="fas fa-search"></i>
-                                    Track Your Report
-                                </a>
+                                <a href="#report" class="btn btn-primary"><i class="fas fa-file-alt"></i> Report Now</a>
+                                <a href="#track" class="btn btn-secondary"><i class="fas fa-search"></i> Track a Report</a>
                             </div>
                         </div>
                     </div>
-
-                    <div class="text-center" style="margin-bottom: var(--space-3xl);">
-                        <h3>About the PAWS Reporting System</h3>
-                        <p style="max-width: 800px; margin: 0 auto; font-size: 1.125rem; line-height: 1.7;">
-                            This web-based system is designed to streamline the reporting, tracking, and management of animal cruelty cases. 
-                            It aims to bridge the gap between concerned citizens, the Philippine Animal Welfare Society (PAWS), and local authorities, 
-                            providing a centralized and efficient channel for reporting incidents and ensuring timely action.
-                        </p>
-                    </div>
-
                     <div class="features-grid">
                         <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-edit"></i>
-                            </div>
-                            <h4>Easy Reporting</h4>
-                            <p>Submit detailed reports with optional multimedia evidence through our intuitive interface.</p>
+                            <div class="feature-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                            <h4>Easy Submission</h4>
+                            <p>Submit a report in minutes with our user-friendly form.</p>
                         </div>
                         <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <h4>Real-time Tracking</h4>
-                            <p>Monitor the status of your submitted cases effortlessly with our real-time tracking system.</p>
+                            <div class="feature-icon"><i class="fas fa-map-marked-alt"></i></div>
+                            <h4>Location Pinpointing</h4>
+                            <p>Accurately pinpoint the location of the incident.</p>
                         </div>
                         <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
-                            <h4>Admin Review</h4>
-                            <p>Ensuring all reports are verified and escalated appropriately by our dedicated team.</p>
+                            <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                            <h4>Anonymity</h4>
+                            <p>Your privacy is our priority. Reports can be submitted anonymously.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-cogs"></i></div>
+                            <h4>Real-time Status</h4>
+                            <p>Track the progress of your report from submission to resolution.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-photo-video"></i></div>
+                            <h4>Evidence Upload</h4>
+                            <p>Easily attach photos and videos to strengthen your report.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-users-cog"></i></div>
+                            <h4>Admin Panel</h4>
+                            <p>Dedicated tools for administrators to manage and track cases efficiently.</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- Register Section -->
-                <section id="register" class="section-content">
-                    <h2 class="text-center">Create Your Account</h2>
-                    <p class="text-center" style="margin-bottom: var(--space-2xl); color: var(--gray-600);">
-                        Join our community of animal advocates and help make a difference
-                    </p>
+                <section id="report" class="section-content">
+                    <h2 style="text-align: center;">Submit a New Report</h2>
+                    <p style="text-align: center; max-width: 600px; margin: 0 auto var(--space-2xl);">Please fill out the form below to report a case of animal cruelty. Providing detailed information helps us respond effectively.</p>
+
+                    <div id="reportLoginPrompt" class="login-prompt">
+                        <i class="fas fa-user-lock"></i>
+                        <h3>Login to Submit a Report</h3>
+                        <p>To ensure report validity and allow you to track its status, please log in or register a new account.</p>
+                        <a href="#login" class="btn" id="openLoginFromReport">Log In</a>
+                    </div>
+
                     <div class="form-container">
-                        <form id="register-form">
+                        <form id="reportForm">
                             <div class="form-group">
-                                <label for="reg-full-name" class="form-label">Full Name</label>
-                                <input type="text" id="reg-full-name" name="fullName" required class="form-input">
+                                <label for="reportTitle" class="form-label">Report Title</label>
+                                <input type="text" id="reportTitle" class="form-input" placeholder="e.g., Injured dog on the street" required>
                             </div>
                             <div class="form-group">
-                                <label for="reg-email" class="form-label">Email Address</label>
-                                <input type="email" id="reg-email" name="email" required class="form-input">
+                                <label for="reportDescription" class="form-label">Detailed Description</label>
+                                <textarea id="reportDescription" class="form-textarea" placeholder="Provide a detailed description of the incident, including what you saw and any relevant context." required></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="reg-mobile" class="form-label">Mobile Number</label>
-                                <input type="tel" id="reg-mobile" name="mobileNumber" required class="form-input">
+                                <label for="reportLocation" class="form-label">Location</label>
+                                <input type="text" id="reportLocation" class="form-input" placeholder="e.g., 123 Main Street, Barangay San Roque" required>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="reportType" class="form-label">Type of Incident</label>
+                                    <select id="reportType" class="form-select" required>
+                                        <option value="">Select a type...</option>
+                                        <option value="Physical Abuse">Physical Abuse</option>
+                                        <option value="Neglect">Neglect</option>
+                                        <option value="Abandonment">Abandonment</option>
+                                        <option value="Illegal Trade">Illegal Trade</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="reportDate" class="form-label">Date of Incident</label>
+                                    <input type="date" id="reportDate" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="reportTime" class="form-label">Time of Incident</label>
+                                    <input type="time" id="reportTime" class="form-input">
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="reg-password" class="form-label">Password</label>
-                                <input type="password" id="reg-password" name="password" required class="form-input">
+                                <label for="reportEvidence" class="form-label">Evidence (Photos/Videos)</label>
+                                <input type="file" id="reportEvidence" class="form-input" accept="image/*,video/*">
+                                <div id="evidencePreview" class="evidence-preview"></div>
                             </div>
-                            <div class="form-group">
-                                <label for="reg-confirm-password" class="form-label">Confirm Password</label>
-                                <input type="password" id="reg-confirm-password" name="confirmPassword" required class="form-input">
-                            </div>
-                            <button type="submit" class="form-submit">
-                                <i class="fas fa-user-plus"></i>
-                                Create Account
-                            </button>
+                            <button type="submit" class="form-submit">Submit Report</button>
                         </form>
                     </div>
                 </section>
 
-                <!-- Login Section -->
-                <section id="login" class="section-content">
-                    <h2 class="text-center">Welcome Back</h2>
-                    <p class="text-center" style="margin-bottom: var(--space-2xl); color: var(--gray-600);">
-                        Sign in to access your account and continue helping animals
-                    </p>
-                    <div class="form-container">
-                        <form id="login-form">
-                            <div class="form-group">
-                                <label for="login-email" class="form-label">Email Address</label>
-                                <input type="email" id="login-email" name="email" required class="form-input">
-                            </div>
-                            <div class="form-group">
-                                <label for="login-password" class="form-label">Password</label>
-                                <input type="password" id="login-password" name="password" required class="form-input">
-                            </div>
-                            <button type="submit" class="form-submit">
-                                <i class="fas fa-sign-in-alt"></i>
-                                Sign In
-                            </button>
-                        </form>
+                <section id="track" class="section-content">
+                    <h2 style="text-align: center;">Track My Reports</h2>
+                    <p style="text-align: center; max-width: 600px; margin: 0 auto var(--space-2xl);">View the status and progress of the reports you have submitted.</p>
+                    
+                    <div id="reportLoadingState" class="loading" style="display: none;">
+                        <div class="loading-spinner"></div>
+                        <span>Loading your reports...</span>
                     </div>
-                </section>
 
-                <!-- File Report Section -->
-<section id="file-report" class="section-content">
-    <h2 class="text-center">File New Report</h2>
-    <p class="text-center" style="margin-bottom: var(--space-2xl); color: var(--gray-600);">
-        Help us protect animals by reporting incidents of cruelty or neglect
-    </p>
-    
-    <!-- Login Prompt (shown when not logged in) -->
-    <div id="file-report-login-prompt" class="login-prompt" style="display: none;">
-        <i class="fas fa-lock"></i>
-        <h3>Authentication Required</h3>
-        <p>You need to be logged in to file a report. This helps us ensure the authenticity of reports and allows you to track your submissions.</p>
-        <a href="#login" class="btn nav-link">
-            <i class="fas fa-sign-in-alt"></i>
-            Login to Continue
-        </a>
-    </div>
+                    <div id="reportEmptyState" class="empty-state" style="display: none;">
+                        <i class="fas fa-box-open"></i>
+                        <p>No reports submitted yet.</p>
+                    </div>
 
-    <!-- Report Form (shown when logged in) -->
-    <div id="file-report-form-container" class="form-container">
-        <form id="file-report-form">
-            <div class="form-group">
-                <label for="report-type" class="form-label">Type of Cruelty</label>
-                <select id="report-type" name="crueltyType" required class="form-select">
-                    <option value="">Select a type</option>
-                    <option value="physical-abuse">Physical Abuse</option>
-                    <option value="neglect">Neglect</option>
-                    <option value="abandonment">Abandonment</option>
-                    <option value="hoarding">Hoarding</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="report-location" class="form-label">Location</label>
-                <input type="text" id="report-location" name="location" required class="form-input">
-            </div>
-            <div class="form-grid">
-                <div class="form-group">
-                    <label for="report-date" class="form-label">Date of Incident</label>
-                    <input type="date" id="report-date" name="date" required class="form-input">
-                </div>
-                <div class="form-group">
-                    <label for="report-time" class="form-label">Time of Incident</label>
-                    <input type="time" id="report-time" name="time" required class="form-input">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="report-description" class="form-label">Description</label>
-                <textarea id="report-description" name="description" rows="5" required class="form-textarea"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="report-evidence" class="form-label">Image Evidence (Optional)</label>
-                <input type="file" id="report-evidence" name="evidence" accept="image/*" class="form-input">
-                <div id="evidence-preview" class="evidence-preview"></div>
-            </div>
-            <button type="submit" class="form-submit">
-                <i class="fas fa-paper-plane"></i>
-                Submit Report
-            </button>
-        </form>
-    </div>
-</section>
-
-                <!-- Track Report Status Section -->
-                <section id="track-report" class="section-content">
-                    <h2 class="text-center">Track Report Status</h2>
-                    <p class="text-center" style="margin-bottom: var(--space-2xl); color: var(--gray-600);">
-                        Monitor the progress of your submitted reports
-                    </p>
                     <div class="table-container">
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>Report ID</th>
-                                    <th>Type</th>
+                                    <th>Report Title</th>
                                     <th>Location</th>
                                     <th>Date</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
-                            <tbody id="user-reports-table-body">
-                                <tr>
-                                    <td colspan="5" class="empty-state">
-                                        <i class="fas fa-search"></i>
-                                        <p>No reports found or please log in.</p>
-                                    </td>
-                                </tr>
-                            </tbody>
+                            <tbody id="trackTableBody">
+                                </tbody>
                         </table>
                     </div>
                 </section>
 
-                <!-- Admin Review Panel Section -->
-                <section id="admin-panel" class="section-content">
-                    <h2 class="text-center">Admin Review Panel</h2>
-                    <p class="text-center" style="margin-bottom: var(--space-2xl); color: var(--gray-600);">
-                        Review and manage submitted reports
-                    </p>
-                    <div id="admin-reports-list">
-                        <div class="empty-state">
-                            <i class="fas fa-cog"></i>
-                            <p>No reports found or only accessible by admin.</p>
+                <section id="admin" class="section-content" style="display: none;">
+                    <div id="adminPanel">
+                        <h2 style="text-align: center;">Admin Panel</h2>
+                        <p style="text-align: center; max-width: 600px; margin: 0 auto var(--space-2xl);">Manage all submitted reports and update their statuses.</p>
+                        
+                        <div id="adminLoadingState" class="loading" style="display: none;">
+                            <div class="loading-spinner"></div>
+                            <span>Loading all reports...</span>
                         </div>
+
+                        <div id="adminEmptyState" class="empty-state" style="display: none;">
+                            <i class="fas fa-box-open"></i>
+                            <p>No reports found in the database.</p>
+                        </div>
+                        
+                        <div id="adminReportList">
+                            </div>
                     </div>
                 </section>
+
             </div>
         </div>
     </div>
 
-    <!-- Custom Modal for Messages -->
-    <div id="message-modal" class="modal">
+    <div id="authModal" class="modal">
         <div class="modal-content">
-            <button class="modal-close">&times;</button>
-            <p id="modal-message" class="modal-message"></p>
-            <button id="modal-close-btn" class="modal-btn">OK</button>
+            <button class="modal-close close">&times;</button>
+            <h3 id="authModalTitle" style="text-align: center;">Register Account</h3>
+            <div style="display: flex; justify-content: center; margin-bottom: var(--space-xl);">
+                <button id="registerTab" class="btn btn-secondary" style="border: none; background: transparent; color: var(--gray-500); padding: var(--space-sm) var(--space-md);">Register</button>
+                <button id="loginTab" class="btn btn-secondary" style="border: none; background: transparent; color: var(--gray-500); padding: var(--space-sm) var(--space-md);">Login</button>
+            </div>
+            
+            <form id="registerForm" style="display: none;">
+                <div class="form-group">
+                    <label for="registerName" class="form-label">Name</label>
+                    <input type="text" id="registerName" class="form-input" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail" class="form-label">Email</label>
+                    <input type="email" id="registerEmail" class="form-input" placeholder="Enter your email address" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPhone" class="form-label">Phone Number</label>
+                    <input type="tel" id="registerPhone" class="form-input" placeholder="Enter your phone number" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword" class="form-label">Password</label>
+                    <input type="password" id="registerPassword" class="form-input" placeholder="Enter a password" required>
+                </div>
+                <button type="submit" class="form-submit">Register</button>
+            </form>
+                        
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail" class="form-label">Email</label>
+                    <input type="email" id="loginEmail" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword" class="form-label">Password</label>
+                    <input type="password" id="loginPassword" class="form-input" required>
+                </div>
+                <button type="submit" class="form-submit">Login</button>
+            </form>
         </div>
     </div>
 
-    <script type="module">
-        // Firebase SDK imports
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signInWithCustomToken, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, addDoc, setDoc, updateDoc, onSnapshot, collection, query, where, getDocs, orderBy, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close close">&times;</button>
+            <h3 id="modalTitle"></h3>
+            <p id="modalMessage" class="modal-message"></p>
+            <button class="modal-btn close">Close</button>
+        </div>
+    </div>
 
-        // Global variables for demo authentication
-        const appId = 'paws-reporting-system';
-        
-        // Demo user storage (in real app, this would be Firebase)
-        let demoUsers = [
-            {
-                email: 'demo@example.com',
-                password: 'password123',
-                fullName: 'Demo User',
-                mobileNumber: '+1234567890',
-                userId: 'demo-user-1'
-            },
-            {
-                email: 'admin@paws.com',
-                password: 'admin123',
-                fullName: 'Admin User',
-                mobileNumber: '+1234567890',
-                userId: 'admin-user-1',
-                isAdmin: true
-            }
-        ];
-        
-        // Demo reports storage
-        let demoReports = [];
+<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-storage.js"></script>
 
-        console.log("Demo authentication system ready");
+<script>
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyB3FZkHhrrpXH4Slee8ffibmbHZd9ih0c8",
+        authDomain: "paws-d9af6.firebaseapp.com",
+        databaseURL: "https://paws-d9af6-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "paws-d9af6",
+        storageBucket: "paws-d9af6.firebasestorage.app",
+        messagingSenderId: "8515431102",
+        appId: "1:8515431102:web:aaf8de9bb00e451b66ccef",
+        measurementId: "G-Z8JW8XNEWW"
+    };
+
+    // Initialize Firebase
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const storage = firebase.storage();
+
+    // DOM Elements
+    const homeSection = document.getElementById('home');
+    const reportSection = document.getElementById('report');
+    const trackSection = document.getElementById('track');
+    const adminSection = document.getElementById('admin');
+
+    const authModal = document.getElementById('authModal');
+    const registerForm = document.getElementById('registerForm');
+    const loginForm = document.getElementById('loginForm');
+    const authModalTitle = document.getElementById('authModalTitle');
+    const registerTab = document.getElementById('registerTab');
+    const loginTab = document.getElementById('loginTab');
+
+    const messageModal = document.getElementById('messageModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMessage = document.getElementById('modalMessage');
+
+    const reportForm = document.getElementById('reportForm');
+    const logoutBtn = document.getElementById('logout-btn');
+    const currentUserInfo = document.getElementById('current-user-info');
+    const userStatus = document.getElementById('user-status');
+    const registerNavItem = document.getElementById('register-nav-item');
+    const loginNavItem = document.getElementById('login-nav-item');
+
+    const trackTableBody = document.getElementById('trackTableBody');
+    const reportLoadingState = document.getElementById('reportLoadingState');
+    const reportEmptyState = document.getElementById('reportEmptyState');
+
+    const adminReportList = document.getElementById('adminReportList');
+    const adminLoadingState = document.getElementById('adminLoadingState');
+    const adminEmptyState = document.getElementById('adminEmptyState');
+    const adminPanel = document.getElementById('adminPanel');
+
+    const reportEvidenceInput = document.getElementById('reportEvidence');
+    const evidencePreview = document.getElementById('evidencePreview');
+    
+    const reportLoginPrompt = document.getElementById('reportLoginPrompt');
 
 
-        let app, db, auth, userId = null;
-        let isAdmin = false; // Flag to determine if the current user is an admin
-        let isUserAuthenticated = false; // Flag to track if user is properly authenticated
-
-        // --- Utility Functions for UI and Modals ---
-        function showMessageModal(message) {
-            const modal = document.getElementById('message-modal');
-            const modalMessage = document.getElementById('modal-message');
-            modalMessage.textContent = message;
-            modal.style.display = 'flex'; // Use flex to center the modal content
+    // --- Modal Functions ---
+    function openAuthModal(mode) {
+        authModal.style.display = 'flex';
+        if (mode === 'register') {
+            showRegisterTab();
+        } else {
+            showLoginTab();
         }
+    }
 
-        function hideMessageModal() {
-            const modal = document.getElementById('message-modal');
-            modal.style.display = 'none';
-        }
-		
-		   // File Upload Handling
-        document.getElementById('report-evidence').addEventListener('change', function(e) {
-            const previewContainer = document.getElementById('evidence-preview');
-            previewContainer.innerHTML = '';
-            
-            Array.from(e.target.files).forEach(file => {
-                if (!file.type.match('image.*')) {
-                    showMessageModal("Only image files are supported in this demo");
-                    return;
-                }
-                
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.classList.add('evidence-thumbnail');
-                    previewContainer.appendChild(img);
-                }
-                reader.readAsDataURL(file);
-            });
-        });
+    function closeAuthModal() {
+        authModal.style.display = 'none';
+        registerForm.reset();
+        loginForm.reset();
+    }
+    
+    function showRegisterTab() {
+        authModalTitle.textContent = "Register Account";
+        registerTab.style.color = 'var(--primary-700)';
+        loginTab.style.color = 'var(--gray-500)';
+        registerForm.style.display = 'block';
+        loginForm.style.display = 'none';
+    }
+
+    function showLoginTab() {
+        authModalTitle.textContent = "Login";
+        loginTab.style.color = 'var(--primary-700)';
+        registerTab.style.color = 'var(--gray-500)';
+        loginForm.style.display = 'block';
+        registerForm.style.display = 'none';
+    }
+
+    function showMessageModal(title, message) {
+        modalTitle.textContent = title;
+        modalMessage.textContent = message;
+        messageModal.style.display = 'flex';
+    }
+
+    function closeModal() {
+        messageModal.style.display = 'none';
+    }
 
 
-        // Function to update UI based on authentication status
-        function updateUIForAuthentication() {
-            const userStatus = document.getElementById('user-status');
-            const currentUserInfo = document.getElementById('current-user-info');
-            const logoutBtn = document.getElementById('logout-btn');
-            const registerNavItem = document.getElementById('register-nav-item');
-            const loginNavItem = document.getElementById('login-nav-item');
-            const adminNavItem = document.getElementById('admin-nav-item');
-            
-            if (userId && isUserAuthenticated) {
-                // User is logged in
-                const currentUser = demoUsers.find(u => u.userId === userId);
-                const userType = isAdmin ? 'Administrator' : 'User';
-                currentUserInfo.textContent = `${currentUser.fullName} (${userType})`;
-                userStatus.style.display = 'block';
-                
-                // Hide register/login nav items
-                registerNavItem.style.display = 'none';
-                loginNavItem.style.display = 'none';
-                
-                // Show/hide admin nav based on admin status
-                adminNavItem.style.display = isAdmin ? 'block' : 'none';
-                
-            } else {
-                // User is not logged in
-                userStatus.style.display = 'none';
-                registerNavItem.style.display = 'block';
-                loginNavItem.style.display = 'block';
-                adminNavItem.style.display = 'none';
-            }
-        }
-
-        // Function to update File Report section based on authentication status
-        function updateFileReportSection() {
-            const loginPrompt = document.getElementById('file-report-login-prompt');
-            const formContainer = document.getElementById('file-report-form-container');
-            
-            // Check if user is authenticated using our demo system
-            const isAuthenticated = userId && isUserAuthenticated;
-            
-            if (isAuthenticated) {
-                // User is logged in - show the form
-                loginPrompt.style.display = 'none';
-                formContainer.style.display = 'block';
-                formContainer.classList.remove('disabled');
-            } else {
-                // User is not logged in - show the login prompt
-                loginPrompt.style.display = 'block';
-                formContainer.style.display = 'none';
-                formContainer.classList.add('disabled');
-                
-                // Clear the form to prevent any data from being submitted
-                if (document.getElementById('file-report-form')) {
-                    document.getElementById('file-report-form').reset();
-                }
-            }
-        }
-
-        // Close button for modal
-        document.querySelector('.modal-close').onclick = hideMessageModal;
-        document.getElementById('modal-close-btn').onclick = hideMessageModal;
-        window.onclick = function(event) {
-            const modal = document.getElementById('message-modal');
-            if (event.target == modal) {
-                hideMessageModal();
-            }
-        }
-
-        // --- Demo Authentication System ---
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("Demo authentication system initialized");
-            
-            // Initialize with no user logged in
-            userId = null;
-            isAdmin = false;
-            isUserAuthenticated = false;
-            
-            // Update UI to show logged out state
-            updateUIForAuthentication();
-            updateFileReportSection();
-            document.getElementById('user-reports-table-body').innerHTML = '<tr><td colspan="5" class="empty-state"><i class="fas fa-search"></i><p>No reports found or please log in.</p></td></tr>';
-            document.getElementById('admin-reports-list').innerHTML = '<div class="empty-state"><i class="fas fa-cog"></i><p>No reports found or only accessible by admin.</p></div>';
-            
-            // Add logout functionality
-            document.getElementById('logout-btn').addEventListener('click', function() {
-                // Clear authentication state
-                userId = null;
-                isAdmin = false;
-                isUserAuthenticated = false;
-                
-                // Update UI
-                updateUIForAuthentication();
-                updateFileReportSection();
-                
-                // Clear forms
-                document.getElementById('login-form').reset();
-                document.getElementById('register-form').reset();
-                document.getElementById('file-report-form').reset();
-                
-                // Reset tables
-                document.getElementById('user-reports-table-body').innerHTML = '<tr><td colspan="5" class="empty-state"><i class="fas fa-search"></i><p>No reports found or please log in.</p></td></tr>';
-                document.getElementById('admin-reports-list').innerHTML = '<div class="empty-state"><i class="fas fa-cog"></i><p>No reports found or only accessible by admin.</p></div>';
-                
-                // Show logout message and redirect to home
-                showMessageModal("You have been successfully logged out.");
-                setTimeout(() => {
-                    showSection('home');
-                }, 1500);
-            });
-        });
-
-        // --- Navigation Logic ---
-        const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('.section-content');
-
-        function showSection(id) {
-            sections.forEach(section => {
+    // --- Tab Switching ---
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.style.display = 'none';
                 section.classList.remove('active');
             });
-            const activeSection = document.getElementById(id);
-            if (activeSection) {
-                activeSection.classList.add('active');
-            }
-
-            // Trigger data load/refresh when navigating to specific sections
-            if (id === 'track-report' && userId) {
-                loadUserReports();
-            } else if (id === 'admin-panel' && isAdmin) {
-                loadAdminReports();
-            } else if (id === 'file-report') {
-                updateFileReportSection();
-            }
-        }
-
-        // Handle navigation clicks
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault(); // Prevent default anchor behavior
-                const targetId = this.getAttribute('href').substring(1); // Get section ID from href
-                showSection(targetId);
-                history.pushState(null, '', this.getAttribute('href')); // Update URL hash
-            });
-        });
-
-        // Handle initial load and back/forward button
-        function handleHashChange() {
-            const hash = window.location.hash.substring(1);
-            if (hash) {
-                showSection(hash);
-            } else {
-                showSection('home'); // Default to home if no hash
-            }
-        }
-
-        window.addEventListener('hashchange', handleHashChange);
-
-                        // Initial section display based on URL hash or default to home
-                handleHashChange();
-                
-                // Initialize File Report section
-                updateFileReportSection();
-
-        // --- User Authentication Functions ---
-        document.getElementById('register-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const fullName = document.getElementById('reg-full-name').value.trim();
-            const email = document.getElementById('reg-email').value.trim();
-            const mobileNumber = document.getElementById('reg-mobile').value.trim();
-            const password = document.getElementById('reg-password').value;
-            const confirmPassword = document.getElementById('reg-confirm-password').value;
-            const submitButton = document.querySelector('#register-form .form-submit');
-            const originalButtonText = submitButton.innerHTML;
-            
-            // Enhanced validation
-            if (!fullName || !email || !mobileNumber || !password || !confirmPassword) {
-                showMessageModal("Please fill in all required fields.");
-                return;
-            }
-            
-            if (!email.includes('@')) {
-                showMessageModal("Please enter a valid email address.");
-                return;
-            }
-            
-            if (password.length < 6) {
-                showMessageModal("Password must be at least 6 characters long.");
-                return;
-            }
-            
-            if (password !== confirmPassword) {
-                showMessageModal("Passwords do not match. Please try again.");
-                document.getElementById('reg-confirm-password').value = '';
-                document.getElementById('reg-confirm-password').focus();
-                return;
-            }
-            
-            // Show loading state
-            submitButton.innerHTML = '<div class="loading-spinner" style="width: 16px; height: 16px; border: 2px solid var(--gray-200); border-top: 2px solid var(--white);"></div> Creating Account...';
-            submitButton.disabled = true;
-
-            try {
-                console.log("Attempting to create account for:", email);
-                
-                // Check if user already exists
-                const existingUser = demoUsers.find(u => u.email === email);
-                if (existingUser) {
-                    showMessageModal("An account with this email already exists. Please try logging in instead.");
-                    return;
-                }
-                
-                // Create new user
-                const newUser = {
-                    email: email,
-                    password: password,
-                    fullName: fullName,
-                    mobileNumber: mobileNumber,
-                    userId: 'user-' + Date.now()
-                };
-                
-                demoUsers.push(newUser);
-                console.log("Account created successfully:", newUser);
-                
-                showMessageModal(`Account created successfully! Welcome ${fullName}! You can now log in with your email and password.`);
-                document.getElementById('register-form').reset();
-                
-                // Small delay before redirect to show success message
-                setTimeout(() => {
-                    showSection('login');
-                }, 2000);
-                
-            } catch (error) {
-                console.error("Error registering user:", error);
-                showMessageModal("Registration failed. Please try again.");
-                
-                // Clear password fields for security
-                document.getElementById('reg-password').value = '';
-                document.getElementById('reg-confirm-password').value = '';
-                
-            } finally {
-                // Restore button state
-                submitButton.innerHTML = originalButtonText;
-                submitButton.disabled = false;
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                targetSection.style.display = 'block';
+                targetSection.classList.add('active');
             }
         });
-
-        document.getElementById('login-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const email = document.getElementById('login-email').value.trim();
-            const password = document.getElementById('login-password').value;
-            const submitButton = document.querySelector('#login-form .form-submit');
-            const originalButtonText = submitButton.innerHTML;
-            
-            // Basic validation
-            if (!email || !password) {
-                showMessageModal("Please enter both email and password.");
-                return;
-            }
-            
-            if (!email.includes('@')) {
-                showMessageModal("Please enter a valid email address.");
-                return;
-            }
-            
-            // Show loading state
-            submitButton.innerHTML = '<div class="loading-spinner" style="width: 16px; height: 16px; border: 2px solid var(--gray-200); border-top: 2px solid var(--white);"></div> Signing In...';
-            submitButton.disabled = true;
-
-            // Simulate network delay
-            await new Promise(resolve => setTimeout(resolve, 1000));
-
-            try {
-                console.log("Attempting to sign in with email:", email);
-                
-                // Demo authentication logic
-                const user = demoUsers.find(u => u.email === email && u.password === password);
-                
-                if (user) {
-                    console.log("Sign in successful:", user);
-                    
-                    // Set authentication state
-                    userId = user.userId;
-                    isUserAuthenticated = true;
-                    isAdmin = user.isAdmin || false;
-                    
-                    // Success message
-                    const userType = isAdmin ? 'Administrator' : 'User';
-                    showMessageModal(`Welcome back! You have successfully logged in as ${user.email} (${userType}).`);
-                    
-                    // Reset form and redirect
-                    document.getElementById('login-form').reset();
-                    
-                    // Update UI
-                    updateUIForAuthentication();
-                    updateFileReportSection();
-                    if (isAdmin) {
-                        loadAdminReports();
-                    } else {
-                        loadUserReports();
-                    }
-                    
-                    // Small delay before redirect to show success message
-                    setTimeout(() => {
-                        showSection(isAdmin ? 'admin-panel' : 'home');
-                    }, 1500);
-                    
-                } else {
-                    // Check if user exists but password is wrong
-                    const userExists = demoUsers.find(u => u.email === email);
-                    if (userExists) {
-                        showMessageModal("Incorrect password. Please check your password and try again.");
-                    } else {
-                        showMessageModal("No account found with this email address. Please check your email or register a new account.");
-                    }
-                    
-                    // Clear password field for security
-                    document.getElementById('login-password').value = '';
-                    document.getElementById('login-password').focus();
-                }
-                
-            } catch (error) {
-                console.error("Error logging in user:", error);
-                showMessageModal("Login failed. Please try again.");
-                
-                // Clear password field for security
-                document.getElementById('login-password').value = '';
-                document.getElementById('login-password').focus();
-                
-            } finally {
-                // Restore button state
-                submitButton.innerHTML = originalButtonText;
-                submitButton.disabled = false;
-            }
-        });
-
-      // Modified Report Submission
-    document.getElementById('file-report-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        if (!isUserAuthenticated || !userId) {
-            showMessageModal("Please log in to file a report.");
-            showSection('login');
-            return;
-        }
-
-        const crueltyType = document.getElementById('report-type').value;
-        const location = document.getElementById('report-location').value;
-        const date = document.getElementById('report-date').value;
-        const time = document.getElementById('report-time').value;
-        const description = document.getElementById('report-description').value;
-        const evidenceFiles = document.getElementById('report-evidence').files;
-        
-        let evidenceData = [];
-
-        // Process files
-        if (evidenceFiles.length > 0) {
-            Array.from(evidenceFiles).forEach(file => {
-                if (file.type.match('image.*')) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        evidenceData.push({
-                            name: file.name,
-                            type: file.type,
-                            data: e.target.result.split(',')[1] // Base64 data
-                        });
-                    }
-                    reader.readAsDataURL(file);
-                }
-            });
-        }
-
-        // Create new report with evidence
-        const newReport = {
-            reportId: 'RPT-' + Date.now(),
-            userId: userId,
-            crueltyType: crueltyType,
-            location: location,
-            date: date,
-            time: time,
-            description: description,
-            evidence: evidenceData,
-            status: 'Received',
-            submittedAt: new Date().toISOString()
-        };
-        
-        demoReports.push(newReport);
-        showMessageModal(`Report filed successfully! Your Report ID is: ${newReport.reportId}`);
-        document.getElementById('file-report-form').reset();
-        document.getElementById('evidence-preview').innerHTML = '';
-        showSection('track-report');
     });
-        // --- Load User Reports ---
-        async function loadUserReports() {
-            if (!userId) {
-                document.getElementById('user-reports-table-body').innerHTML = '<tr><td colspan="5" class="empty-state"><i class="fas fa-search"></i><p>Please log in to view your reports.</p></td></tr>';
-                return;
+
+    // --- Corrected User Registration Function ---
+    async function handleUserRegistration(e) {
+        e.preventDefault();
+        const name = document.getElementById('registerName').value;
+        const email = document.getElementById('registerEmail').value;
+        const phone = document.getElementById('registerPhone').value;
+        const password = document.getElementById('registerPassword').value;
+
+        try {
+            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+            const user = userCredential.user;
+
+            // Save the additional user info to a Firestore "users" collection
+            await db.collection("users").doc(user.uid).set({
+                name: name,
+                email: email,
+                phone: phone,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+
+            showMessageModal("Registration Successful!", "You can now log in with your new account.");
+            // Clear the form
+            document.getElementById('registerForm').reset();
+            closeAuthModal();
+        } catch (error) {
+            console.error("Error creating user:", error);
+            let errorMessage = "Registration failed. Please try again.";
+            if (error.code === 'auth/email-already-in-use') {
+                errorMessage = "This email is already in use.";
+            } else if (error.code === 'auth/weak-password') {
+                errorMessage = "The password is too weak. Please use a stronger password.";
             }
-
-            const reportsTableBody = document.getElementById('user-reports-table-body');
-            reportsTableBody.innerHTML = '<tr><td colspan="5" class="loading">Loading reports...<div class="loading-spinner"></div></td></tr>';
-
-            // Simulate network delay
-            setTimeout(() => {
-                try {
-                    // Filter reports for current user
-                    const userReports = demoReports.filter(report => report.userId === userId);
-                    
-                    if (userReports.length === 0) {
-                        reportsTableBody.innerHTML = '<tr><td colspan="5" class="empty-state"><i class="fas fa-search"></i><p>No reports submitted yet.</p></td></tr>';
-                        return;
-                    }
-
-                    reportsTableBody.innerHTML = ''; // Clear existing rows
-                    userReports.forEach((report) => {
-                        const row = `
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${report.reportId}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${report.crueltyType}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${report.location}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${report.date}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm ${report.status === 'Resolved' ? 'text-green-600' : report.status === 'Under Review' ? 'text-yellow-600' : 'text-blue-600'} font-semibold">${report.status}</td>
-                            </tr>
-                        `;
-                        reportsTableBody.innerHTML += row;
-                    });
-                } catch (error) {
-                    console.error("Error loading user reports:", error);
-                    reportsTableBody.innerHTML = `<tr><td colspan="5" class="empty-state"><i class="fas fa-exclamation-circle"></i> Error loading reports: ${error.message}</tr>`;
-                }
-            }, 1000);
+            showMessageModal("Registration Failed", errorMessage);
         }
+    }
 
-      async function loadAdminReports() {
-    if (!isAdmin) {
-        document.getElementById('admin-reports-list').innerHTML = '<div class="admin-card"><p class="text-center text-gray-500">Access Denied: Only administrators can view this panel.</p></div>';
+    // --- Corrected User Login Function ---
+    async function handleUserLogin(e) {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+        try {
+            await auth.signInWithEmailAndPassword(email, password);
+            closeAuthModal();
+            loginEmail.value = '';
+            loginPassword.value = '';
+        } catch (error) {
+            console.error("Error logging in user:", error);
+            let errorMessage = "Login failed. Please check your email and password and try again.";
+            if (error.code === 'auth/user-not-found') {
+                errorMessage = "No user found with this email.";
+            } else if (error.code === 'auth/wrong-password') {
+                errorMessage = "Incorrect password.";
+            }
+            showMessageModal("Login Failed", errorMessage);
+        }
+    }
+
+    // --- User Logout Function ---
+    logoutBtn.addEventListener('click', async () => {
+        try {
+            await auth.signOut();
+            showMessageModal("Logged Out", "You have been successfully logged out.");
+        } catch (error) {
+            console.error("Error signing out:", error);
+            showMessageModal("Logout Failed", "There was an error logging out. Please try again.");
+        }
+    });
+
+// --- Authentication State Observer ---
+auth.onAuthStateChanged(user => {
+    const reportFormContainer = document.querySelector('#report .form-container');
+    const adminNavItem = document.getElementById('admin-nav-item');
+    const homeNavItem = document.querySelector('.nav-link[href="#home"]').parentElement;
+    const reportNavItem = document.querySelector('.nav-link[href="#report"]').parentElement;
+    const trackNavItem = document.querySelector('.nav-link[href="#track"]').parentElement;
+
+    if (user) {
+        // User is signed in
+        currentUserInfo.textContent = `Logged in as: ${user.email}`;
+        userStatus.style.display = 'block';
+        registerNavItem.style.display = 'none';
+        loginNavItem.style.display = 'none';
+
+        // Check if the user is the admin
+        if (user.email === 'admin@gmail.com') {
+            // Admin user: hide all other nav links, show only admin
+            homeNavItem.style.display = 'none';
+            reportNavItem.style.display = 'none';
+            trackNavItem.style.display = 'none';
+            adminNavItem.style.display = 'block';
+            adminPanel.style.display = 'block';
+            loadAdminReports();
+
+            // Also hide regular user sections
+            reportSection.style.display = 'none';
+            trackSection.style.display = 'none';
+            reportFormContainer.style.display = 'none';
+            reportLoginPrompt.style.display = 'none';
+
+        } else {
+            // Regular user: show all regular links, hide admin
+            homeNavItem.style.display = 'block';
+            reportNavItem.style.display = 'block';
+            trackNavItem.style.display = 'block';
+            adminNavItem.style.display = 'none';
+            adminPanel.style.display = 'none';
+
+            // Show regular user sections
+            reportSection.style.display = 'block';
+            trackSection.style.display = 'block';
+            reportFormContainer.style.display = 'block';
+            reportLoginPrompt.style.display = 'none';
+            loadUserReports(user.uid);
+        }
+    } else {
+        // User is signed out
+        userStatus.style.display = 'none';
+        registerNavItem.style.display = 'block';
+        loginNavItem.style.display = 'block';
+        homeNavItem.style.display = 'block';
+        reportNavItem.style.display = 'block';
+        trackNavItem.style.display = 'block';
+
+        if (reportFormContainer) {
+            reportFormContainer.style.display = 'none';
+        }
+        if (reportLoginPrompt) {
+            reportLoginPrompt.style.display = 'block';
+        }
+        trackTableBody.innerHTML = '';
+        if (adminPanel) {
+            adminPanel.style.display = 'none';
+        }
+        if (adminNavItem) {
+            adminNavItem.style.display = 'none';
+        }
+    }
+});
+
+
+// --- Corrected Report Submission Function ---
+async function submitReport(e) {
+    e.preventDefault();
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
+        showMessageModal("Error", "You must be logged in to submit a report.");
         return;
     }
 
-    const adminReportsList = document.getElementById('admin-reports-list');
-    adminReportsList.innerHTML = '<div class="loading">Loading admin reports...<div class="loading-spinner"></div></div>';
+    // Get form data
+    const reportData = {
+        title: document.getElementById('reportTitle').value,
+        description: document.getElementById('reportDescription').value,
+        location: document.getElementById('reportLocation').value,
+        type: document.getElementById('reportType').value,
+        date: document.getElementById('reportDate').value,
+        time: document.getElementById('reportTime').value,
+        userId: currentUser.uid,
+        userName: currentUser.email,
+        status: 'Received',
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    };
 
-    // Simulate network delay
-    setTimeout(() => {
-        try {
-            if (demoReports.length === 0) {
-                adminReportsList.innerHTML = '<div class="empty-state"><i class="fas fa-clipboard-list"></i><p>No reports to review.</p></div>';
-                return;
-            }
+    const evidenceFile = document.getElementById('reportEvidence').files[0];
+    let downloadURL = null;
 
-            adminReportsList.innerHTML = ''; // Clear existing cards
-            demoReports.forEach((report) => {
-                // Create evidence display HTML if images exist
-                let evidenceHtml = '';
-                if (report.evidence && report.evidence.length > 0) {
-                    evidenceHtml = `
-                        <div class="admin-evidence-display">
-                            <h4 class="form-label">Evidence Images:</h4>
-                            <div class="evidence-preview">
-                                ${report.evidence.map(img => `
-                                    <img src="data:${img.type};base64,${img.data}" 
-                                         alt="Evidence" 
-                                         class="admin-evidence-image"
-                                         onclick="openImageModal('data:${img.type};base64,${img.data}')">
-                                `).join('')}
+    try {
+        // Step 1: Upload evidence file if it exists
+        if (evidenceFile) {
+            const storageRef = firebase.storage().ref();
+            const fileRef = storageRef.child(`evidence/${currentUser.uid}/${Date.now()}-${evidenceFile.name}`);
+            const snapshot = await fileRef.put(evidenceFile);
+            downloadURL = await snapshot.ref.getDownloadURL();
+            reportData.evidenceURL = downloadURL;
+        }
+
+        // Step 2: Save report data to Firestore
+        await db.collection("reports").add(reportData);
+
+        // All steps succeeded, show success message and reset form
+        showMessageModal("Success!", "Your report has been submitted successfully.");
+        document.getElementById('reportForm').reset();
+        // Clear the evidence preview as well
+        document.getElementById('evidencePreview').innerHTML = '';
+
+        // *** NEW: Reload reports after successful submission
+        loadUserReports(currentUser.uid);
+
+    } catch (error) {
+        console.error("Error submitting report:", error);
+        let errorMessage = "Report submission failed. Please try again.";
+        if (error.code) {
+            errorMessage = `Submission failed. Error: ${error.message}`;
+        }
+        showMessageModal("Error", errorMessage);
+    }
+}
+
+
+    // --- Load User Reports ---
+    function loadUserReports(uid) {
+        if (!trackTableBody) return;
+        trackTableBody.innerHTML = '';
+        reportLoadingState.style.display = 'flex';
+        reportEmptyState.style.display = 'none';
+        db.collection("reports")
+            .where("userId", "==", uid)
+            .orderBy("timestamp", "desc")
+            .get()
+            .then(querySnapshot => {
+                reportLoadingState.style.display = 'none';
+                if (querySnapshot.empty) {
+                    reportEmptyState.style.display = 'block';
+                    return;
+                }
+                let tableHtml = '';
+                querySnapshot.forEach(doc => {
+                    const report = doc.data();
+                    const statusClass = report.status.toLowerCase().replace(' ', '-');
+                    const date = report.date ? new Date(report.date).toLocaleDateString() : 'N/A';
+                    tableHtml += `
+                        <tr>
+                            <td>${report.title}</td>
+                            <td>${report.location}</td>
+                            <td>${date}</td>
+                            <td><span class="status-badge status-${statusClass}">${report.status}</span></td>
+                        </tr>
+                    `;
+                });
+                trackTableBody.innerHTML = tableHtml;
+            })
+            .catch(error => {
+                console.error("Error fetching user reports: ", error);
+                reportLoadingState.style.display = 'none';
+                showMessageModal("Error", "Could not load your reports. Please try again later.");
+            });
+    }
+
+
+    function loadAdminReports() {
+        if (!adminReportList) return;
+        adminReportList.innerHTML = '';
+        adminLoadingState.style.display = 'flex';
+        adminEmptyState.style.display = 'none';
+        db.collection("reports")
+            .orderBy("timestamp", "desc")
+            .get()
+            .then(querySnapshot => {
+                adminLoadingState.style.display = 'none';
+                if (querySnapshot.empty) {
+                    adminEmptyState.style.display = 'block';
+                    return;
+                }
+                let reportsHtml = '';
+                querySnapshot.forEach(doc => {
+                    const report = { id: doc.id, ...doc.data() };
+                    const date = report.date ? new Date(report.date).toLocaleDateString() : 'N/A';
+                    const evidenceHtml = report.evidenceURL ? `<img src="${report.evidenceURL}" alt="Evidence" class="admin-evidence-image">` : '';
+
+                    reportsHtml += `
+                        <div class="admin-card">
+                            <div class="admin-card-header">
+                                <h4 class="admin-card-title">${report.title}</h4>
+                                <div class="admin-controls">
+                                    <select class="admin-select" data-report-id="${report.id}">
+                                        <option value="Received" ${report.status === 'Received' ? 'selected' : ''}>Received</option>
+                                        <option value="Under Review" ${report.status === 'Under Review' ? 'selected' : ''}>Under Review</option>
+                                        <option value="Resolved" ${report.status === 'Resolved' ? 'selected' : ''}>Resolved</option>
+                                    </select>
+                                    <button class="admin-btn update-btn" data-report-id="${report.id}">Update Status</button>
+                                </div>
                             </div>
+                            <p><strong>Report ID:</strong> ${report.id}</p>
+                            <p><strong>Reporter:</strong> ${report.userName}</p>
+                            <p><strong>Date:</strong> ${date} at ${report.time}</p>
+                            <p><strong>Location:</strong> ${report.location}</p>
+                            <p><strong>Type:</strong> ${report.type}</p>
+                            <p><strong>Description:</strong> ${report.description}</p>
+                            ${report.evidenceURL ? `<div class="admin-evidence-display"><strong>Evidence:</strong><br>${evidenceHtml}</div>` : ''}
                         </div>
                     `;
-                }
-
-                const card = `
-                    <div class="admin-card">
-                        <div class="admin-card-header">
-                            <h3 class="admin-card-title">Report ID: ${report.reportId}</h3>
-                            <span class="status-badge ${report.status === 'Received' ? 'status-received' : report.status === 'Under Review' ? 'status-review' : 'status-resolved'}">${report.status}</span>
-                        </div>
-                        <p><span class="font-medium">User ID:</span> ${report.userId}</p>
-                        <p><span class="font-medium">Type:</span> ${report.crueltyType}</p>
-                        <p><span class="font-medium">Location:</span> ${report.location}</p>
-                        <p><span class="font-medium">Date/Time:</span> ${report.date}, ${report.time}</p>
-                        <p><span class="font-medium">Description:</span> ${report.description}</p>
-                        ${evidenceHtml}
-                        <div class="admin-controls">
-                            <select id="status-select-${report.reportId}" class="admin-select">
-                                <option value="Received" ${report.status === 'Received' ? 'selected' : ''}>Received</option>
-                                <option value="Under Review" ${report.status === 'Under Review' ? 'selected' : ''}>Under Review</option>
-                                <option value="Forwarded to Authorities" ${report.status === 'Forwarded to Authorities' ? 'selected' : ''}>Forwarded to Authorities</option>
-                                <option value="Resolved" ${report.status === 'Resolved' ? 'selected' : ''}>Resolved</option>
-                                <option value="Flagged/Malicious" ${report.status === 'Flagged/Malicious' ? 'selected' : ''}>Flagged/Malicious</option>
-								<option value="Incomplete" ${report.status === 'Incomplete' ? 'selected' : ''}>Incomplete</option>
-                            </select>
-                            <button data-report-id="${report.reportId}" class="admin-btn">
-                                Update Status
-                            </button>
-                        </div>
-                    </div>
-                `;
-                adminReportsList.innerHTML += card;
-            });
-
-            // Attach event listeners to update buttons after rendering
-            document.querySelectorAll('.admin-btn').forEach(button => {
-                button.addEventListener('click', async (event) => {
-                    const reportId = event.target.dataset.reportId;
-                    const newStatus = document.getElementById(`status-select-${reportId}`).value;
-                    await updateReportStatus(reportId, newStatus);
                 });
+                adminReportList.innerHTML = reportsHtml;
+
+                document.querySelectorAll('.update-btn').forEach(button => {
+                    button.addEventListener('click', handleUpdateReportStatus);
+                });
+            })
+            .catch(error => {
+                console.error("Error fetching admin reports: ", error);
+                adminLoadingState.style.display = 'none';
+                showMessageModal("Error", "Could not load admin reports. Please check your console for details.");
             });
+    }
+
+    async function handleUpdateReportStatus(e) {
+        const reportId = e.target.getAttribute('data-report-id');
+        const statusSelect = document.querySelector(`.admin-select[data-report-id="${reportId}"]`);
+        const newStatus = statusSelect.value;
+        try {
+            await db.collection("reports").doc(reportId).update({ status: newStatus });
+            showMessageModal("Success", `Report ${reportId} status updated to ${newStatus}.`);
         } catch (error) {
-            console.error("Error loading admin reports:", error);
-            adminReportsList.innerHTML = `<div class="admin-card"><p class="text-center text-red-500">Error loading reports: ${error.message}</p></div>`;
+            console.error("Error updating report status:", error);
+            showMessageModal("Error", `Failed to update report status. Error: ${error.message}`);
         }
-    }, 1000);
-}
+    }
 
-// Function to handle image modal
-function openImageModal(src) {
-    const modal = document.createElement('div');
-    modal.style.position = 'fixed';
-    modal.style.top = '0';
-    modal.style.left = '0';
-    modal.style.width = '100%';
-    modal.style.height = '100%';
-    modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
-    modal.style.display = 'flex';
-    modal.style.alignItems = 'center';
-    modal.style.justifyContent = 'center';
-    modal.style.zIndex = '10000';
-    modal.style.cursor = 'zoom-out';
-    
-    const img = document.createElement('img');
-    img.src = src;
-    img.style.maxWidth = '90%';
-    img.style.maxHeight = '90%';
-    img.style.objectFit = 'contain';
-    
-    modal.appendChild(img);
-    modal.onclick = () => document.body.removeChild(modal);
-    
-    document.body.appendChild(modal);
-}
-        // --- Update Report Status (Admin Function) ---
-        async function updateReportStatus(reportId, newStatus) {
-            if (!isAdmin) {
-                showMessageModal("Permission Denied: You are not authorized to update report status.");
-                return;
-            }
 
-            try {
-                // Find and update the report in demo storage
-                const reportIndex = demoReports.findIndex(report => report.reportId === reportId);
-                if (reportIndex !== -1) {
-                    demoReports[reportIndex].status = newStatus;
-                    demoReports[reportIndex].updatedAt = new Date();
-                    showMessageModal(`Report ${reportId} status updated to: ${newStatus}`);
-                    
-                    // Reload admin reports to show updated status
-                    loadAdminReports();
-                } else {
-                    showMessageModal(`Report ${reportId} not found.`);
-                }
-            } catch (error) {
-                console.error("Error updating report status:", error);
-                showMessageModal(`Failed to update status for report ${reportId}: ${error.message}`);
-            }
+    // --- Event Listeners ---
+    document.getElementById('openRegisterModal').addEventListener('click', () => openAuthModal('register'));
+    document.getElementById('openLoginModal').addEventListener('click', () => openAuthModal('login'));
+    
+    // Fix for the close buttons on both modals
+    document.querySelectorAll('.modal-close').forEach(btn => {
+        const modal = btn.closest('.modal');
+        if (modal.id === 'authModal') {
+            btn.addEventListener('click', closeAuthModal);
+        } else if (modal.id === 'messageModal') {
+            btn.addEventListener('click', closeModal);
         }
-    </script>
+    });
+    document.querySelectorAll('.modal-btn.close').forEach(btn => btn.addEventListener('click', closeModal));
+
+    // Event listeners for the register/login tabs
+    registerTab.addEventListener('click', showRegisterTab);
+    loginTab.addEventListener('click', showLoginTab);
+    
+    document.getElementById('openLoginFromReport').addEventListener('click', (e) => {
+        e.preventDefault();
+        openAuthModal('login');
+    });
+
+    registerForm.addEventListener('submit', handleUserRegistration);
+    loginForm.addEventListener('submit', handleUserLogin);
+    reportForm.addEventListener('submit', submitReport);
+
+    // Initial load state
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('home').style.display = 'block';
+        document.querySelector('.nav-link[href="#home"]').classList.add('active');
+    });
+
+    // Handle evidence preview
+    reportEvidenceInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = document.createElement('img');
+                img.src = event.target.result;
+                img.classList.add('evidence-thumbnail');
+                evidencePreview.innerHTML = ''; // Clear previous preview
+                evidencePreview.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            evidencePreview.innerHTML = '';
+        }
+    });
+
+</script>
 </body>
 </html>
